@@ -29,11 +29,12 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/login_id"
+        android:id="@+id/login_email"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="ID"
+        android:inputType="textEmailAddress"
+        android:hint="아이디(이메일)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MainTitle" />
@@ -43,10 +44,11 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="Password"
+        android:inputType="textPassword"
+        android:hint="비밀번호"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_id" />
+        app:layout_constraintTop_toBottomOf="@id/login_email" />
 
     <Button
         android:id="@+id/btn_login"

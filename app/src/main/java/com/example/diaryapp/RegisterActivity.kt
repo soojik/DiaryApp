@@ -49,7 +49,6 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) { //회원가입 잘 됐을 때
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
-                        val user = auth.currentUser
                         Toast.makeText(baseContext, "회원가입 완료", Toast.LENGTH_SHORT).show()
                         finish() //Activity 닫음
                     } else {
