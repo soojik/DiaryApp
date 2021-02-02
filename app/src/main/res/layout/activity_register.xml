@@ -13,18 +13,19 @@
         android:layout_marginTop="35dp"
         android:text="회원가입"
         android:textSize="35dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/register_id"
+        android:id="@+id/register_email"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="이름"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="아이디(이메일)"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_register" />
 
 
@@ -34,30 +35,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="비밀번호"
-        app:layout_constraintStart_toStartOf="@id/register_id"
-        app:layout_constraintEnd_toEndOf="@id/register_id"
-        app:layout_constraintTop_toBottomOf="@id/register_id" />
-
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@id/register_email"
+        app:layout_constraintStart_toStartOf="@id/register_email"
+        app:layout_constraintTop_toBottomOf="@id/register_email" />
 
     <EditText
-        android:id="@+id/register_passwordchk"
+        android:id="@+id/register_passwordChk"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="비밀번호 확인"
-        app:layout_constraintStart_toStartOf="@id/register_password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@id/register_password"
+        app:layout_constraintStart_toStartOf="@id/register_password"
         app:layout_constraintTop_toBottomOf="@id/register_password" />
 
     <EditText
-        android:id="@+id/register_birth"
+        android:id="@+id/register_name"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="생년월일(YYYYMMDD)"
-        app:layout_constraintStart_toStartOf="@id/register_passwordchk"
-        app:layout_constraintEnd_toEndOf="@id/register_passwordchk"
-        app:layout_constraintTop_toBottomOf="@id/register_passwordchk" />
+        android:hint="이름"
+        app:layout_constraintEnd_toEndOf="@id/register_passwordChk"
+        app:layout_constraintStart_toStartOf="@id/register_passwordChk"
+        app:layout_constraintTop_toBottomOf="@id/register_passwordChk" />
 
     <EditText
         android:id="@+id/register_num"
@@ -65,19 +67,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="전화번호"
-        app:layout_constraintStart_toStartOf="@id/register_birth"
-        app:layout_constraintEnd_toEndOf="@id/register_birth"
-        app:layout_constraintTop_toBottomOf="@id/register_birth" />
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@id/register_name"
+        app:layout_constraintStart_toStartOf="@id/register_name"
+        app:layout_constraintTop_toBottomOf="@id/register_name" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="로그인"
+        android:text="완료"
         android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="@id/register_num"
         app:layout_constraintEnd_toEndOf="@id/register_num"
+        app:layout_constraintStart_toStartOf="@id/register_num"
         app:layout_constraintTop_toBottomOf="@id/register_num" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
