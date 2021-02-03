@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="@drawable/gray_feeling_weather"
-    tools:context=".FeelingActivity" >
+    tools:context=".WeatherActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:background="#CFCFCF"
             android:gravity="center"
-            android:text="Feeling"
+            android:text="Weather"
             android:textSize="30sp" />
 
     </LinearLayout>
@@ -39,7 +39,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/happy_3" />
+            app:srcCompat="@drawable/sunny" />
 
         <ImageView
             android:id="@+id/imgViewCloudy1"
@@ -47,7 +47,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/happy_2" />
+            app:srcCompat="@drawable/cloudy1" />
 
         <ImageView
             android:id="@+id/imgViewCloudy2"
@@ -55,7 +55,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/happy_1" />
+            app:srcCompat="@drawable/cloudy2" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,7 +71,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/in_love" />
+            app:srcCompat="@drawable/windy" />
 
         <ImageView
             android:id="@+id/imgViewRainy"
@@ -79,7 +79,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/kissing" />
+            app:srcCompat="@drawable/rainy" />
 
         <ImageView
             android:id="@+id/imgViewSnowy"
@@ -87,7 +87,7 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/confused" />
+            app:srcCompat="@drawable/snowy" />
     </LinearLayout>
 
     <LinearLayout
@@ -104,22 +104,24 @@
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/crying" />
+            app:srcCompat="@drawable/thunderstorm" />
 
         <ImageView
-            android:id="@+id/imgViewHail"
+            android:id="@+id/imgViewRainbow"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/mad" />
+            app:srcCompat="@drawable/rainbow" />
 
         <ImageView
-            android:id="@+id/imgViewQuiet"
+            android:id="@+id/imgViewHailstorm"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/quiet" />
+            app:srcCompat="@drawable/Hail" />
+
     </LinearLayout>
+
 </LinearLayout>
