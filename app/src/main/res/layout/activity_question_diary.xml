@@ -31,6 +31,15 @@
                     tools:srcCompat="@drawable/happiness" />
 
                 <TextView
+                    android:id="@+id/yearTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="n월"
+                    android:textSize="30sp" />
+
+                <TextView
                     android:id="@+id/monthTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -99,6 +108,14 @@
                 android:hint="일기 내용"
                 android:inputType="textPersonName"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/diaryBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="일기 저장"
+                app:backgroundTint="#FF9800" />
 
             <Button
                 android:id="@+id/recordBtn"
