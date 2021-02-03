@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiaryApp">
-        <activity android:name=".FeelingActivity"></activity>
-        <activity android:name=".QuestionDiaryActivity" />
+        <activity android:name=".QuestionDiaryActivity"></activity>
+        <activity android:name=".FeelingActivity" />
         <activity android:name=".DiaryActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity">
