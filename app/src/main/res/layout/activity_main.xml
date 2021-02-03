@@ -23,7 +23,7 @@
         android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:text="어플 이름"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@id/MainLogo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:text="로그인"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_signUp"
         app:layout_constraintTop_toBottomOf="@id/login_password" />
@@ -67,9 +67,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:text="회원가입"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_password" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
