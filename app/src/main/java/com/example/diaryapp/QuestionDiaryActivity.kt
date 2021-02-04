@@ -22,9 +22,5 @@ class QuestionDiaryActivity : AppCompatActivity() {
         yearTextView.setText(year)
         monthTextView.setText(month)
         dayTextView.setText(day)
-
-
-
-
     }
 }

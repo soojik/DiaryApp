@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navDiary"
+            android:title="@string/menu_diary" />
+        <item
+            android:id="@+id/navTodo"
+            android:title="@string/menu_todo" />
+        <item
+            android:id="@+id/navFeeling"
+            android:title="@string/menu_feeling" />
+        <item
+            android:id="@+id/navWeather"
+            android:title="@string/menu_weather" />
+    </group>
+
+</menu>

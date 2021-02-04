@@ -1,44 +1,63 @@
 package com.example.diaryapp
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
+import android.view.Menu
+import android.view.View
+import android.widget.TextView
+import com.google.android.material.navigation.NavigationView
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
-import android.widget.CalendarView
 
 class DiaryActivity : AppCompatActivity() {
+    lateinit var toolbar : Toolbar
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var headerView: View
     lateinit var auth : FirebaseAuth
-    lateinit var btn_logout : Button
-    lateinit var calendarView: CalendarView
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-        auth = FirebaseAuth.getInstance()
-        btn_logout = findViewById(R.id.btn_logout)
-        calendarView=findViewById<CalendarView>(R.id.calendarView)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navDiary, R.id.navTodo, R.id.navFeeling, R.id.navWeather
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
 
-        btn_logout.setOnClickListener {
-            Toast.makeText(baseContext, "로그아웃", Toast.LENGTH_SHORT).show()
-            auth.signOut()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        val user = FirebaseAuth.getInstance().currentUser
+
+        headerView = navView.getHeaderView(0)
+        user?.let {
+            headerView.findViewById<TextView>(R.id.userEmail).text = user.email
         }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
 
-        calendarView.setOnDateChangeListener {  view, year, month, day->
-
-            var intent = Intent(this, QuestionDiaryActivity::class.java)
-            intent.putExtra("year",year.toString())
-            intent.putExtra("month",month.toString()+1)
-            intent.putExtra("day",day.toString())
-            startActivity(intent)
-        }
-
-
-
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navDiary">
+
+    <fragment
+        android:id="@+id/navDiary"
+        android:name="com.example.diaryapp.DiaryFragment"
+        android:label="@string/menu_diary"
+        tools:layout="@layout/fragment_diary" />
+
+    <fragment
+        android:id="@+id/navTodo"
+        android:name="com.example.diaryapp.TodoFragment"
+        android:label="@string/menu_todo"
+        tools:layout="@layout/fragment_todo" />
+
+    <fragment
+        android:id="@+id/navFeeling"
+        android:name="com.example.diaryapp.FeelingFragment"
+        android:label="@string/menu_feeling"
+        tools:layout="@layout/fragment_todo" />
+
+    <fragment
+        android:id="@+id/navWeather"
+        android:name="com.example.diaryapp.WeatherFragment"
+        android:label="@string/menu_weather"
+        tools:layout="@layout/fragment_todo" />
+
+</navigation>
