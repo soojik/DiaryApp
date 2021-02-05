@@ -11,11 +11,7 @@
             android:id="@+id/navTodo"
             android:title="@string/menu_todo" />
         <item
-            android:id="@+id/navFeeling"
-            android:title="@string/menu_feeling" />
-        <item
-            android:id="@+id/navWeather"
-            android:title="@string/menu_weather" />
+            android:id="@+id/navMyPage"
+            android:title="@string/menu_setting" />
     </group>
-
 </menu>

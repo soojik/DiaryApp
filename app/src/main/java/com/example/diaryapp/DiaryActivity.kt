@@ -36,7 +36,7 @@ class DiaryActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navDiary, R.id.navTodo, R.id.navFeeling, R.id.navWeather
+                R.id.navDiary, R.id.navTodo
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

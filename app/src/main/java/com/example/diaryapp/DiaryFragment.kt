@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 
 /**
@@ -16,10 +18,14 @@ import com.google.firebase.auth.FirebaseAuth
  * Use the [DiaryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class DiaryFragment : Fragment() {
     lateinit var auth : FirebaseAuth
     lateinit var btnLogout : Button
+    lateinit var btnFeeling : Button
+    lateinit var btnWeather : Button
     lateinit var calendarView: CalendarView
+    lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +45,16 @@ class DiaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnLogout = view.findViewById(R.id.btn_logout)
+        btnLogout = view.findViewById(R.id.btnLogout)
+        btnFeeling = view.findViewById(R.id.btnFeeling)
+        btnWeather = view.findViewById(R.id.btnWeather)
         calendarView = view.findViewById(R.id.calendarView)
+
+        navController = Navigation.findNavController(view)
+
+        calendarView.setOnDateChangeListener {  view, year, month, day->
+            navController.navigate(R.id.action_navDiary_to_navQuestionDiary)
+        }
 
         btnLogout.setOnClickListener {
             Toast.makeText(this.context, "로그아웃", Toast.LENGTH_SHORT).show()
@@ -48,11 +62,14 @@ class DiaryFragment : Fragment() {
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
         }
-        calendarView.setOnDateChangeListener {  view, year, month, day->
-            var intent = Intent(activity, QuestionDiaryActivity::class.java)
-            intent.putExtra("year",year.toString())
-            intent.putExtra("month",month.toString()+1)
-            intent.putExtra("day",day.toString())
+
+        btnWeather.setOnClickListener {
+            val intent = Intent(activity, WeatherActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnFeeling.setOnClickListener {
+            val intent = Intent(activity, FeelingActivity::class.java)
             startActivity(intent)
         }
     }

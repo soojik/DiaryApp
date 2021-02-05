@@ -9,7 +9,11 @@
         android:id="@+id/navDiary"
         android:name="com.example.diaryapp.DiaryFragment"
         android:label="@string/menu_diary"
-        tools:layout="@layout/fragment_diary" />
+        tools:layout="@layout/fragment_diary" >
+        <action
+            android:id="@+id/action_navDiary_to_navQuestionDiary"
+            app:destination="@id/navQuestionDiary" />
+    </fragment>
 
     <fragment
         android:id="@+id/navTodo"
@@ -18,15 +22,13 @@
         tools:layout="@layout/fragment_todo" />
 
     <fragment
-        android:id="@+id/navFeeling"
-        android:name="com.example.diaryapp.FeelingFragment"
-        android:label="@string/menu_feeling"
-        tools:layout="@layout/fragment_todo" />
-
-    <fragment
-        android:id="@+id/navWeather"
-        android:name="com.example.diaryapp.WeatherFragment"
-        android:label="@string/menu_weather"
-        tools:layout="@layout/fragment_todo" />
+        android:id="@+id/navQuestionDiary"
+        android:name="com.example.diaryapp.QuestionDiaryFragment"
+        android:label="일기, 질문"
+        tools:layout="@layout/fragment_question_diary" >
+        <action
+            android:id="@+id/action_navQuestionDiary_to_navDiary"
+            app:destination="@id/navDiary" />
+    </fragment>
 
 </navigation>
