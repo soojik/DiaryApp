@@ -19,7 +19,6 @@ class DiaryActivity : AppCompatActivity() {
     lateinit var toolbar : Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var headerView: View
-    lateinit var auth : FirebaseAuth
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
