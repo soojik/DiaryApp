@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_login : Button
     lateinit var btnGoogle : SignInButton
 
+    /*
+    로그인하는 방법이 1.이메일+비밀번호(여기서는 이메일이 아이디와 같은 역할), 2.구글 로그인인데
+    btn_login은 1번 방법,  btnGoogle은 2번 방법
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         btn_login = findViewById(R.id.btn_login)
         btnGoogle = findViewById(R.id.btnGoogle)
 
+        //firebase_web_client_id는 원래 자동으로 string에 추가되어야하는데 안돼서 직접 (project로 바꿔서!) app->google-services.json에서 가져옴
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.firebase_web_client_id))
             .requestEmail()
@@ -49,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this,gso)
 
-
+        //1.이메일+비밀번호 로그인
         btn_login.setOnClickListener {
             auth.signInWithEmailAndPassword(login_email.text.toString(), login_password.text.toString())
                 .addOnCompleteListener(this) { task ->
@@ -77,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //2.구글 로그인
     private fun googleSignIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -116,6 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    //로그인 성공하면 DiaryActivity로
     private fun loginSuccess(){
         val intent = Intent(this, DiaryActivity::class.java)
         startActivity(intent)

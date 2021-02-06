@@ -27,6 +27,13 @@ class DiaryFragment : Fragment() {
     lateinit var calendarView: CalendarView
     lateinit var navController : NavController
 
+    /*
+    생명주기가 이 셋으로 따지자면 onCreate -> onCreateView -> onViewCreated 순인데 view 불러오고, onViewCreated에서는 만들어진 view에서
+    레이아웃 요소 바인딩 해주는거. navController는 mobile_navigation에서 프레그먼트가 diary -> questiondiary로 넘어가는 행동을
+    action_navDiary_to_navQuestionDiary라는 id로 설정해줬는데, 저번에 activity에서 구현했던 거랑 똑같이 calenderView를 누르면 넘어가도록
+    말 그대로 프레그먼트 안내해주는 역할
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

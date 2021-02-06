@@ -16,6 +16,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TodoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+//To-do 리스트 작성창
 class TodoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 
+//회원가입 진행하는 창
 class RegisterActivity : AppCompatActivity() {
     private val TAG : String = "RegisterActivity"
     private lateinit var auth: FirebaseAuth
@@ -41,9 +42,10 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    //이메일+비밀번호 매개변수로 받아와 회원가입
+    //잘 됐는지 결과에 따라 Toast랑 Log 작성
     private fun createUser(email: String, password: String) {
         auth = FirebaseAuth.getInstance()
-
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) { //회원가입 잘 됐을 때
@@ -59,6 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
     }
 
+    //모든 폼이 조건을 충족했는지 확인하는 함수
     private fun validForm() : Boolean {
         var validck = true
 
