@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -60,7 +62,12 @@ class DiaryFragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         calendarView.setOnDateChangeListener {  view, year, month, day->
-            navController.navigate(R.id.action_navDiary_to_navQuestionDiary)
+            val intent = Intent(getActivity(), QuestionDiaryActivity::class.java)
+            intent.putExtra("year", year.toString())
+            intent.putExtra("month", month.toString())
+            intent.putExtra("day", day.toString())
+            startActivity(intent)
+            //navController.navigate(R.id.action_navDiary_to_navQuestionDiary)
         }
 
         btnLogout.setOnClickListener {

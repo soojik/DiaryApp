@@ -1,13 +1,27 @@
 package com.example.diaryapp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.*
 
 class QuestionDiaryActivity : AppCompatActivity() {
+
+    var fName : String = ""
+    var userName : String = "kimswunie" //나중에 db에서 이름 정보 가져와서 바꿀 부분
+
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
     lateinit var yearTextView:TextView
+    lateinit var questionTextView : TextView
+    lateinit var answerEditText : EditText
+    lateinit var answerBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +32,95 @@ class QuestionDiaryActivity : AppCompatActivity() {
         monthTextView = findViewById<TextView>(R.id.monthTextView)
         dayTextView = findViewById<TextView>(R.id.dayTextView)
         yearTextView = findViewById<TextView>(R.id.yearTextView)
-        var year = intent.getStringExtra("year")+"년"
-        var month = intent.getStringExtra("month")+"월"
-        var day = intent.getStringExtra("day")+"일"
-        yearTextView.setText(year)
-        monthTextView.setText(month)
-        dayTextView.setText(day)
+        questionTextView = findViewById<TextView>(R.id.questionTextView)
+        answerEditText = findViewById<EditText>(R.id.answerEditText)
+        answerBtn = findViewById(R.id.answerBtn)
+
+        var year = intent.getStringExtra("year").toString()
+        var monthString = intent.getStringExtra("month").toString()
+        var monthInt = monthString!!.toInt() + 1
+        monthString = monthInt.toString()
+        var day = intent.getStringExtra("day").toString()
+        yearTextView.setText(year + "년")
+        monthTextView.setText(monthString + "월")
+        dayTextView.setText(day + "일")
+
+        checkedDayQuestion(year, monthString, day)
+        checkedDayAnswer(year, monthString, day)
+
+    }
+
+    fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문
+        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
+
+        val randomNum = Random()
+        val num = randomNum.nextInt(10)
+        val qarray : Array<String> = resources.getStringArray(R.array.question)
+        var qstr = qarray[num] //랜덤으로 질문 저장
+
+        var str = readFile(fName)
+
+        if(str==""){ //질문이 안만들어졌으면 새로 질문을 만들고 질문 파일 생성
+            questionTextView.text = qstr
+            saveFileTextView(fName, questionTextView)
+        } else{ //질문 만들어져있으면 불러오기
+            questionTextView.text = str
+        }
+    }
+
+    fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변
+        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
+
+        var str = readFile(fName)
+
+        if(str==""){ //답변 없으면 answerEditText에 쓰여진 내용 파일로 저장
+            answerBtn.setOnClickListener {
+                saveFileEditText(fName, answerEditText)
+                Toast.makeText(this, fName + " 데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            }
+        } else{ //답변이 이미 존재하면 불러오기
+            answerEditText.setText(str)
+        }
+    }
+
+    fun readFile(fName : String) : String{ //파일 읽는 함수
+        lateinit var str : String
+
+        try {
+            var fis : FileInputStream? = null
+            fis = openFileInput(fName)
+            val fileData = ByteArray(fis.available()) //fileData에 바이트 형식으로 저장
+            fis.read(fileData)
+            fis.close()
+
+            str = String(fileData)
+        } catch(e : Exception){
+            str = ""
+        }
+        return str
+    }
+
+    fun saveFileTextView(fName : String, widget : TextView){ //TextView인 질문 저장하는 함수
+        try{
+            var fos : FileOutputStream? = null
+            fos = openFileOutput(fName, Context.MODE_PRIVATE)
+            var content : String = widget.text.toString()
+            fos.write(content.toByteArray())
+            fos.close()
+        } catch(e : Exception){
+            e.printStackTrace()
+        }
+    }
+
+    fun saveFileEditText(fName : String, widget : EditText){ //EditText인 답변 저장하는 함수
+        try{
+            var fos : FileOutputStream? = null
+            fos = openFileOutput(fName, Context.MODE_PRIVATE)
+            var content : String = widget.getText().toString()
+            fos.write(content.toByteArray())
+            fos.close()
+        } catch(e : Exception){
+            e.printStackTrace()
+        }
     }
 }

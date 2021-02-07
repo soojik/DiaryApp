@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="question">
+        <item>가장 인상깊었던 영화는?</item>
+        <item>나의 고향을 소개하자면?</item>
+        <item>내가 좋아하는 음식은?</item>
+        <item>지금 내가 가장 듣고 싶은 말은?</item>
+        <item>내 인생 최대 위기의 순간은?</item>
+        <item>힘든 시기를 견디게 해주는 나의 원동력은?</item>
+        <item>나에게 사랑이란?</item>
+        <item>무인도에 가져갈 것 세 가지를 고른다면?</item>
+        <item>내 인생에서 가장 행복했던 순간은?</item>
+        <item>나의 신체 중 가장 마음에 드는 곳은?</item>
+    </string-array>
+</resources>

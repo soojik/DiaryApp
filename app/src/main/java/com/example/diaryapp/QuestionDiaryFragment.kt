@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 
 //diaryFragment에서 calenderView 클릭하면 전환되는 Fragment로 다이어리 작성하는 창
 class QuestionDiaryFragment : Fragment() {
