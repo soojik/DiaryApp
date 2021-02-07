@@ -33,7 +33,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imgViewSun"
+            android:id="@+id/imgViewHappy1"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -41,7 +41,7 @@
             app:srcCompat="@drawable/happy_3" />
 
         <ImageView
-            android:id="@+id/imgViewCloudy1"
+            android:id="@+id/imgViewHappy2"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -49,7 +49,7 @@
             app:srcCompat="@drawable/happy_2" />
 
         <ImageView
-            android:id="@+id/imgViewCloudy2"
+            android:id="@+id/imgViewHappy3"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -65,7 +65,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imgViewWindy"
+            android:id="@+id/imgViewLove"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -73,7 +73,7 @@
             app:srcCompat="@drawable/in_love" />
 
         <ImageView
-            android:id="@+id/imgViewRainy"
+            android:id="@+id/imgViewKiss"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -81,7 +81,7 @@
             app:srcCompat="@drawable/kissing" />
 
         <ImageView
-            android:id="@+id/imgViewSnowy"
+            android:id="@+id/imgViewSoso"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -98,7 +98,7 @@
         android:paddingBottom="3dp">
 
         <ImageView
-            android:id="@+id/imgViewThunder"
+            android:id="@+id/imgViewCrying"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"
@@ -106,7 +106,7 @@
             app:srcCompat="@drawable/crying" />
 
         <ImageView
-            android:id="@+id/imgViewHail"
+            android:id="@+id/imgViewMad"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_weight="1"

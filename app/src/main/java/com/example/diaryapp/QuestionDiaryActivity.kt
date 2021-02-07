@@ -1,12 +1,11 @@
 package com.example.diaryapp
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.*
@@ -22,6 +21,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
     lateinit var questionTextView : TextView
     lateinit var answerEditText : EditText
     lateinit var answerBtn : Button
+    lateinit var feelingImgView : ImageView
+    lateinit var weatherImgView : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
         questionTextView = findViewById<TextView>(R.id.questionTextView)
         answerEditText = findViewById<EditText>(R.id.answerEditText)
         answerBtn = findViewById(R.id.answerBtn)
+        feelingImgView = findViewById(R.id.feelingImgView)
+        weatherImgView = findViewById(R.id.weatherImgView)
 
         var year = intent.getStringExtra("year").toString()
         var monthString = intent.getStringExtra("month").toString()
@@ -48,6 +51,52 @@ class QuestionDiaryActivity : AppCompatActivity() {
         checkedDayQuestion(year, monthString, day)
         checkedDayAnswer(year, monthString, day)
 
+        feelingImgView.setOnClickListener {
+            var intent = Intent(this, FeelingActivity::class.java)
+            //intent.putExtra("imgg", "")
+            startActivityForResult(intent, 1)
+            /*
+            val feeling = intent.getStringExtra("img").toString()
+            when{
+                feeling == "imgViewHappy1" -> feelingImgView.setImageResource(R.drawable.happy_3)
+                feeling == "imgViewHappy2" -> feelingImgView.setImageResource(R.drawable.happy_2)
+                feeling == "imgViewHappy3" -> feelingImgView.setImageResource(R.drawable.happy_1)
+                feeling == "imgViewLove" -> feelingImgView.setImageResource(R.drawable.in_love)
+                feeling == "imgViewKiss" -> feelingImgView.setImageResource(R.drawable.kissing)
+                feeling == "imgViewSoso" -> feelingImgView.setImageResource(R.drawable.confused)
+                feeling == "imgViewCrying" -> feelingImgView.setImageResource(R.drawable.crying)
+                feeling == "imgViewMad" -> feelingImgView.setImageResource(R.drawable.mad)
+                feeling == "imgViewQuiet" -> feelingImgView.setImageResource(R.drawable.quiet)
+            }
+             */
+        }
+
+        weatherImgView.setOnClickListener {
+            var intent = Intent(this, WeatherActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+            1 -> {
+                val feeling = data!!.getStringExtra("img").toString()
+                when(resultCode == Activity.RESULT_OK){
+                    feeling == "imgViewHappy1" -> feelingImgView.setImageResource(R.drawable.happy_3)
+                    feeling == "imgViewHappy2" -> feelingImgView.setImageResource(R.drawable.happy_2)
+                    feeling == "imgViewHappy3" -> feelingImgView.setImageResource(R.drawable.happy_1)
+                    feeling == "imgViewLove" -> feelingImgView.setImageResource(R.drawable.in_love)
+                    feeling == "imgViewKiss" -> feelingImgView.setImageResource(R.drawable.kissing)
+                    feeling == "imgViewSoso" -> feelingImgView.setImageResource(R.drawable.confused)
+                    feeling == "imgViewCrying" -> feelingImgView.setImageResource(R.drawable.crying)
+                    feeling == "imgViewMad" -> feelingImgView.setImageResource(R.drawable.mad)
+                    feeling == "imgViewQuiet" -> feelingImgView.setImageResource(R.drawable.quiet)
+                }
+            }
+        }
     }
 
     fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문

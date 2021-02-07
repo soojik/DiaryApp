@@ -22,4 +22,11 @@
     <style name="Theme.DiaryApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DiaryApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DialogTheme" parent="@style/Theme.DiaryApp.NoActionBar">
+        <item name="android:windowBackground">@color/dialogColor</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 </resources>
