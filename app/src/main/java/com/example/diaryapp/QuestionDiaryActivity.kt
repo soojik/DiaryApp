@@ -18,11 +18,13 @@ class QuestionDiaryActivity : AppCompatActivity() {
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
     lateinit var yearTextView:TextView
+    lateinit var diaryEditView:EditText
     lateinit var questionTextView : TextView
     lateinit var answerEditText : EditText
     lateinit var answerBtn : Button
+    lateinit var  diarySaveBtn:Button
+    lateinit var weatherView : ImageView
     lateinit var feelingImgView : ImageView
-    lateinit var weatherImgView : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,22 +36,38 @@ class QuestionDiaryActivity : AppCompatActivity() {
         dayTextView = findViewById<TextView>(R.id.dayTextView)
         yearTextView = findViewById<TextView>(R.id.yearTextView)
         questionTextView = findViewById<TextView>(R.id.questionTextView)
+        diaryEditView = findViewById<EditText>(R.id.diaryEditView)
         answerEditText = findViewById<EditText>(R.id.answerEditText)
         answerBtn = findViewById(R.id.answerBtn)
+        diarySaveBtn = findViewById(R.id.diarySaveBtn)
+        weatherView = findViewById(R.id.weatherView)
+
         feelingImgView = findViewById(R.id.feelingImgView)
-        weatherImgView = findViewById(R.id.weatherImgView)
+
 
         var year = intent.getStringExtra("year").toString()
         var monthString = intent.getStringExtra("month").toString()
-        var monthInt = monthString!!.toInt() + 1
-        monthString = monthInt.toString()
         var day = intent.getStringExtra("day").toString()
+
         yearTextView.setText(year + "년")
         monthTextView.setText(monthString + "월")
         dayTextView.setText(day + "일")
 
+
         checkedDayQuestion(year, monthString, day)
         checkedDayAnswer(year, monthString, day)
+
+        readDiary(year,monthString,day)
+        saveDiary( year + monthString + day + "_" + userName + "_" + "Diary" + ".txt",diaryEditView)
+
+        setWeather(year, monthString, day)
+
+        weatherView.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java)
+            startActivityForResult(intent,1)
+            Toast.makeText(this, "엑티비티 변환", Toast.LENGTH_SHORT).show()
+        }
+
 
         feelingImgView.setOnClickListener {
             var intent = Intent(this, FeelingActivity::class.java)
@@ -71,33 +89,88 @@ class QuestionDiaryActivity : AppCompatActivity() {
              */
         }
 
-        weatherImgView.setOnClickListener {
-            var intent = Intent(this, WeatherActivity::class.java)
-            startActivity(intent)
-        }
 
     }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK) {
 
-        when(requestCode){
-            1 -> {
-                val feeling = data!!.getStringExtra("img").toString()
-                when(resultCode == Activity.RESULT_OK){
-                    feeling == "imgViewHappy1" -> feelingImgView.setImageResource(R.drawable.happy_3)
-                    feeling == "imgViewHappy2" -> feelingImgView.setImageResource(R.drawable.happy_2)
-                    feeling == "imgViewHappy3" -> feelingImgView.setImageResource(R.drawable.happy_1)
-                    feeling == "imgViewLove" -> feelingImgView.setImageResource(R.drawable.in_love)
-                    feeling == "imgViewKiss" -> feelingImgView.setImageResource(R.drawable.kissing)
-                    feeling == "imgViewSoso" -> feelingImgView.setImageResource(R.drawable.confused)
-                    feeling == "imgViewCrying" -> feelingImgView.setImageResource(R.drawable.crying)
-                    feeling == "imgViewMad" -> feelingImgView.setImageResource(R.drawable.mad)
-                    feeling == "imgViewQuiet" -> feelingImgView.setImageResource(R.drawable.quiet)
+            var weather = data?.getStringExtra("weather").toString()
+            var year = intent.getStringExtra("year").toString()
+            var monthString = intent.getStringExtra("month").toString()
+            var day = intent.getStringExtra("day").toString()
+            Toast.makeText(this, "onActivityresult"+ weather, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, loc, Toast.LENGTH_SHORT).show()
+
+            saveWeather(year, monthString, day,weather) // 날씨 저장 함수
+        }
+
+
+            when(requestCode){
+                1 -> {
+                    val feeling = data!!.getStringExtra("img").toString()
+                    when(resultCode == Activity.RESULT_OK){
+                        feeling == "imgViewHappy1" -> feelingImgView.setImageResource(R.drawable.happy_3)
+                        feeling == "imgViewHappy2" -> feelingImgView.setImageResource(R.drawable.happy_2)
+                        feeling == "imgViewHappy3" -> feelingImgView.setImageResource(R.drawable.happy_1)
+                        feeling == "imgViewLove" -> feelingImgView.setImageResource(R.drawable.in_love)
+                        feeling == "imgViewKiss" -> feelingImgView.setImageResource(R.drawable.kissing)
+                        feeling == "imgViewSoso" -> feelingImgView.setImageResource(R.drawable.confused)
+                        feeling == "imgViewCrying" -> feelingImgView.setImageResource(R.drawable.crying)
+                        feeling == "imgViewMad" -> feelingImgView.setImageResource(R.drawable.mad)
+                        feeling == "imgViewQuiet" -> feelingImgView.setImageResource(R.drawable.quiet)
+                    }
                 }
             }
-        }
+
+
     }
+
+    //선택한 날씨 저장
+    fun saveWeather(cYear : String, cMonth : String, cDay : String,weather : String){
+        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "weather"+".txt" //날씨 파일
+
+            try{
+                var fos : FileOutputStream? = null
+                fos = openFileOutput(fName, Context.MODE_PRIVATE)
+                var content : String = weather
+                fos.write(content.toByteArray())
+                fos.close()
+            } catch(e : Exception){
+                e.printStackTrace()
+            }
+        setWeather(cYear,cMonth,cDay)
+    }
+
+    //저장한 날씨 설정하기
+    fun setWeather(cYear : String, cMonth : String, cDay : String){
+        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "weather"+".txt"
+
+        var weather = readFile(fName)
+
+        Toast.makeText(this, "set :"+ weather +"   날씨 ", Toast.LENGTH_LONG).show()
+
+// 한번에 이미지 불러오기
+//            var loc = "R.drawble."+ weather
+//            var  resID =  getResources().getIdentifier(weather,"drawble", this.getPackageName());
+//            weatherView.setImageResource(resID)
+
+        //일일히 연결
+        if(weather == "sunny")
+            weatherView.setImageResource(R.drawable.sunny)
+        if(weather == "cloudy1")
+            weatherView.setImageResource(R.drawable.cloudy1)
+        if(weather == "cloudy2")
+            weatherView.setImageResource(R.drawable.cloudy2)
+        else
+            Toast.makeText(this, "없음"+ weather, Toast.LENGTH_SHORT).show()
+
+    }
+
+
 
     fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문
         fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
@@ -116,6 +189,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
             questionTextView.text = str
         }
     }
+
+
 
     fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변
         fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
@@ -172,4 +247,33 @@ class QuestionDiaryActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
+
+
+    fun readDiary(cYear : String, cMonth : String, cDay : String){ //일기
+        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Diary" + ".txt" //일기 파일 이름
+
+        var str = readFile(fName)
+        diaryEditView.setText(str)
+    }
+
+    fun saveDiary(fName : String, widget : EditText){
+        diarySaveBtn.setOnClickListener{
+
+            try{
+                var fos : FileOutputStream? = null
+                fos = openFileOutput(fName, Context.MODE_PRIVATE)
+                var content : String = widget.getText().toString()
+                fos.write(content.toByteArray())
+                fos.close()
+            } catch(e : Exception){
+                e.printStackTrace()
+            }
+
+        }
+
+    }
+
+
+
 }

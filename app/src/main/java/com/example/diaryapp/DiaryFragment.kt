@@ -64,11 +64,14 @@ class DiaryFragment : Fragment() {
         calendarView.setOnDateChangeListener {  view, year, month, day->
             val intent = Intent(getActivity(), QuestionDiaryActivity::class.java)
             intent.putExtra("year", year.toString())
-            intent.putExtra("month", month.toString())
+            intent.putExtra("month", (month+1).toString())
             intent.putExtra("day", day.toString())
             startActivity(intent)
             //navController.navigate(R.id.action_navDiary_to_navQuestionDiary)
         }
+
+
+
 
         btnLogout.setOnClickListener {
             Toast.makeText(this.context, "로그아웃", Toast.LENGTH_SHORT).show()
@@ -77,10 +80,10 @@ class DiaryFragment : Fragment() {
             startActivity(intent)
         }
 
-        btnWeather.setOnClickListener {
-            val intent = Intent(activity, WeatherActivity::class.java)
-            startActivity(intent)
-        }
+//        btnWeather.setOnClickListener {
+//            val intent = Intent(activity, WeatherActivity::class.java)
+//            startActivity(intent)
+//        }
 
         btnFeeling.setOnClickListener {
             val intent = Intent(activity, FeelingActivity::class.java)
