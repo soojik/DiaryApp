@@ -151,20 +151,20 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
         Toast.makeText(this, "set :"+ weather +"   날씨 ", Toast.LENGTH_LONG).show()
 
-// 한번에 이미지 불러오기
-//            var loc = "R.drawble."+ weather
-//            var  resID =  getResources().getIdentifier(weather,"drawble", this.getPackageName());
-//            weatherView.setImageResource(resID)
+//한번에 이미지 불러오기
+            var loc = "@drawble/$weather"
+            var resID =  getResources().getIdentifier(loc,"drawble", this.getPackageName());
+            weatherView.setImageResource(resID)
 
         //일일히 연결
-        if(weather == "sunny")
-            weatherView.setImageResource(R.drawable.sunny)
-        if(weather == "cloudy1")
-            weatherView.setImageResource(R.drawable.cloudy1)
-        if(weather == "cloudy2")
-            weatherView.setImageResource(R.drawable.cloudy2)
-        else
-            Toast.makeText(this, "없음"+ weather, Toast.LENGTH_SHORT).show()
+//        if(weather == "sunny")
+//            weatherView.setImageResource(R.drawable.sunny)
+//        if(weather == "cloudy1")
+//            weatherView.setImageResource(R.drawable.cloudy1)
+//        if(weather == "cloudy2")
+//            weatherView.setImageResource(R.drawable.cloudy2)
+//        else
+//            Toast.makeText(this, "없음"+ weather, Toast.LENGTH_SHORT).show()
 
     }
 
