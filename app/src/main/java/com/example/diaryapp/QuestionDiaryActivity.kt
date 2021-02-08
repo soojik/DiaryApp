@@ -59,7 +59,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
         readDiary(year,monthString,day)
         saveDiary( year + monthString + day + "_" + userName + "_" + "Diary" + ".txt",diaryEditView)
-
         setWeather(year, monthString, day)
 
         weatherView.setOnClickListener {
@@ -67,7 +66,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
             startActivityForResult(intent,1)
             Toast.makeText(this, "엑티비티 변환", Toast.LENGTH_SHORT).show()
         }
-
 
         feelingImgView.setOnClickListener {
             var intent = Intent(this, FeelingActivity::class.java)
@@ -248,8 +246,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         }
     }
 
-
-
+    // 일기
     fun readDiary(cYear : String, cMonth : String, cDay : String){ //일기
         fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Diary" + ".txt" //일기 파일 이름
 
