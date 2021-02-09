@@ -15,6 +15,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     var fName : String = ""
     var userName : String = "kimswunie" //나중에 db에서 이름 정보 가져와서 바꿀 부분
 
+
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
     lateinit var yearTextView:TextView
@@ -58,110 +59,97 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
         readDiary(year,monthString,day)
         saveDiary( year + monthString + day + "_" + userName + "_" + "Diary" + ".txt",diaryEditView)
-        setWeather(year, monthString, day)
 
-        weatherView.setOnClickListener {
-            var intent = Intent(this, WeatherActivity::class.java)
-            startActivityForResult(intent,1)
-        }
+
+        setFeelingOrWeather(year, monthString, day, "feeling")
+        setFeelingOrWeather(year, monthString, day, "weather")
 
         feelingImgView.setOnClickListener {
-            var intent = Intent(this, FeelingActivity::class.java)
-            //intent.putExtra("imgg", "")
+            val intent = Intent(this, FeelingActivity::class.java)
             startActivityForResult(intent, 1)
-            /*
-            val feeling = intent.getStringExtra("img").toString()
-            when{
-                feeling == "imgViewHappy1" -> feelingImgView.setImageResource(R.drawable.happy_3)
-                feeling == "imgViewHappy2" -> feelingImgView.setImageResource(R.drawable.happy_2)
-                feeling == "imgViewHappy3" -> feelingImgView.setImageResource(R.drawable.happy_1)
-                feeling == "imgViewLove" -> feelingImgView.setImageResource(R.drawable.in_love)
-                feeling == "imgViewKiss" -> feelingImgView.setImageResource(R.drawable.kissing)
-                feeling == "imgViewSoso" -> feelingImgView.setImageResource(R.drawable.confused)
-                feeling == "imgViewCrying" -> feelingImgView.setImageResource(R.drawable.crying)
-                feeling == "imgViewMad" -> feelingImgView.setImageResource(R.drawable.mad)
-                feeling == "imgViewQuiet" -> feelingImgView.setImageResource(R.drawable.quiet)
-            }
-             */
         }
 
-
+        weatherView.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java)
+            startActivityForResult(intent,2)
+            Toast.makeText(this, "엑티비티 변환", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK) {
 
-            var weather = data?.getStringExtra("weather").toString()
-            var year = intent.getStringExtra("year").toString()
-            var monthString = intent.getStringExtra("month").toString()
-            var day = intent.getStringExtra("day").toString()
-            Toast.makeText(this, "onActivityresult"+ weather, Toast.LENGTH_SHORT).show()
-            //Toast.makeText(this, loc, Toast.LENGTH_SHORT).show()
+        var year = intent.getStringExtra("year").toString()
+        var monthString = intent.getStringExtra("month").toString()
+        var day = intent.getStringExtra("day").toString()
 
-            saveWeather(year, monthString, day,weather) // 날씨 저장 함수
-        }
-
-
-            when(requestCode){
-                1 -> {
-                    val feeling = data!!.getStringExtra("img").toString()
-                    when(resultCode == Activity.RESULT_OK){
-                        feeling == "imgViewHappy1" -> feelingImgView.setImageResource(R.drawable.happy_3)
-                        feeling == "imgViewHappy2" -> feelingImgView.setImageResource(R.drawable.happy_2)
-                        feeling == "imgViewHappy3" -> feelingImgView.setImageResource(R.drawable.happy_1)
-                        feeling == "imgViewLove" -> feelingImgView.setImageResource(R.drawable.in_love)
-                        feeling == "imgViewKiss" -> feelingImgView.setImageResource(R.drawable.kissing)
-                        feeling == "imgViewSoso" -> feelingImgView.setImageResource(R.drawable.confused)
-                        feeling == "imgViewCrying" -> feelingImgView.setImageResource(R.drawable.crying)
-                        feeling == "imgViewMad" -> feelingImgView.setImageResource(R.drawable.mad)
-                        feeling == "imgViewQuiet" -> feelingImgView.setImageResource(R.drawable.quiet)
-                    }
+        when (requestCode) {
+            1 -> {
+                val feeling = data!!.getStringExtra("feeling").toString()
+                fName = "" + year + monthString + day + "_" + userName + "_" + "feeling" + ".txt" //기분 파일
+                if (resultCode == Activity.RESULT_OK) {
+                    saveFeelingOrWeather(fName, feeling, "feeling")
                 }
             }
-
-
-    }
-
-    //선택한 날씨 저장
-    fun saveWeather(cYear : String, cMonth : String, cDay : String,weather : String){
-        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "weather"+".txt" //날씨 파일
-
-            try{
-                var fos : FileOutputStream? = null
-                fos = openFileOutput(fName, Context.MODE_PRIVATE)
-                var content : String = weather
-                fos.write(content.toByteArray())
-                fos.close()
-            } catch(e : Exception){
-                e.printStackTrace()
+            2 -> {
+                var weather = data?.getStringExtra("weather").toString()
+                fName = "" + year + monthString + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
+                Toast.makeText(this, "onActivityresult" + weather, Toast.LENGTH_SHORT).show()
+                if (resultCode == Activity.RESULT_OK) {
+                    saveFeelingOrWeather(fName, weather, "weather")
+                }
             }
-        setWeather(cYear,cMonth,cDay)
+        }
     }
 
-    //저장한 날씨 설정하기
-    fun setWeather(cYear : String, cMonth : String, cDay : String){
-        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "weather"+".txt"
-        var weather = readFile(fName)
-        Toast.makeText(this, "set :"+ weather +"   날씨 ", Toast.LENGTH_LONG).show()
+    //선택한 기분 또는 날씨 저장
+    fun saveFeelingOrWeather(fName : String, whatForW : String, ForW : String){
 
-        if(weather == "")
-             weatherView.setImageResource(R.drawable.sunny)
+        var year = intent.getStringExtra("year").toString()
+        var monthString = intent.getStringExtra("month").toString()
+        var day = intent.getStringExtra("day").toString()
 
-//한번에 이미지 불러오기
-        else {
-            val resName = "@drawable/$weather"
-            val packName = this.packageName
-            val resID = getResources().getIdentifier(resName, "drawable", packName);
-            weatherView.setImageResource(resID)
+        try{
+            var fos : FileOutputStream? = null
+            fos = openFileOutput(fName, Context.MODE_PRIVATE)
+            var content : String = whatForW
+            fos.write(content.toByteArray())
+            fos.close()
+        } catch(e : Exception){
+            e.printStackTrace()
+        }
+        setFeelingOrWeather(year, monthString, day, ForW)
+    }
+
+    //기분, 날씨 화면에 설정
+    fun setFeelingOrWeather(Year : String, Month : String, Day : String, ForW : String) {
+        if (ForW == "feeling") {
+            fName = "" + Year + Month + Day + "_" + userName + "_" + "feeling" + ".txt"
+        } else {
+            fName = "" + Year + Month + Day + "_" + userName + "_" + "weather" + ".txt"
         }
 
+        var whatForW = readFile(fName)
+
+        if(whatForW == ""){
+            if(ForW=="feeling"){
+                feelingImgView.setImageResource(R.drawable.happy_3)
+            }else{
+                weatherView.setImageResource(R.drawable.sunny)
+            }
+        }else{
+            var loc = "@drawable/$whatForW"
+            var resID = getResources().getIdentifier(loc, "drawable", this.packageName)
+            if (ForW == "feeling") {
+                feelingImgView.setImageResource(resID)
+            } else {
+                weatherView.setImageResource(resID)
+            }
+        }
 
     }
-
-
 
     fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문
         fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
@@ -180,8 +168,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
             questionTextView.text = str
         }
     }
-
-
 
     fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변
         fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
@@ -263,7 +249,4 @@ class QuestionDiaryActivity : AppCompatActivity() {
         }
 
     }
-
-
-
 }
