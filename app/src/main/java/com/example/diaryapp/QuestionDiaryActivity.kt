@@ -12,9 +12,8 @@ import java.util.*
 
 class QuestionDiaryActivity : AppCompatActivity() {
 
-    var fName : String = ""
+    //var fName : String = ""
     var userName : String = "kimswunie" //나중에 db에서 이름 정보 가져와서 바꿀 부분
-
 
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
@@ -88,14 +87,14 @@ class QuestionDiaryActivity : AppCompatActivity() {
         when (requestCode) {
             1 -> {
                 val feeling = data!!.getStringExtra("feeling").toString()
-                fName = "" + year + monthString + day + "_" + userName + "_" + "feeling" + ".txt" //기분 파일
+                var fName = "" + year + monthString + day + "_" + userName + "_" + "feeling" + ".txt" //기분 파일
                 if (resultCode == Activity.RESULT_OK) {
                     saveFeelingOrWeather(fName, feeling, "feeling")
                 }
             }
             2 -> {
-                var weather = data?.getStringExtra("weather").toString()
-                fName = "" + year + monthString + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
+                val weather = data?.getStringExtra("weather").toString()
+                var fName = "" + year + monthString + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
                 Toast.makeText(this, "onActivityresult" + weather, Toast.LENGTH_SHORT).show()
                 if (resultCode == Activity.RESULT_OK) {
                     saveFeelingOrWeather(fName, weather, "weather")
@@ -125,6 +124,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
     //기분, 날씨 화면에 설정
     fun setFeelingOrWeather(Year : String, Month : String, Day : String, ForW : String) {
+        var fName : String
         if (ForW == "feeling") {
             fName = "" + Year + Month + Day + "_" + userName + "_" + "feeling" + ".txt"
         } else {
@@ -148,14 +148,13 @@ class QuestionDiaryActivity : AppCompatActivity() {
                 weatherView.setImageResource(resID)
             }
         }
-
     }
 
     fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문
-        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
+        var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
 
         val randomNum = Random()
-        val num = randomNum.nextInt(10)
+        val num = randomNum.nextInt(30)
         val qarray : Array<String> = resources.getStringArray(R.array.question)
         var qstr = qarray[num] //랜덤으로 질문 저장
 
@@ -170,7 +169,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     }
 
     fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변
-        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
+        var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
 
         var str = readFile(fName)
 
@@ -181,6 +180,9 @@ class QuestionDiaryActivity : AppCompatActivity() {
             }
         } else{ //답변이 이미 존재하면 불러오기
             answerEditText.setText(str)
+            answerBtn.setOnClickListener{
+                saveFileEditText(fName, answerEditText)
+            }
         }
     }
 
@@ -227,7 +229,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
     // 일기
     fun readDiary(cYear : String, cMonth : String, cDay : String){ //일기
-        fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Diary" + ".txt" //일기 파일 이름
+        var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Diary" + ".txt" //일기 파일 이름
 
         var str = readFile(fName)
         diaryEditView.setText(str)
