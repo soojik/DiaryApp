@@ -44,7 +44,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         weatherView = findViewById(R.id.weatherView)
         feelingImgView = findViewById(R.id.feelingImgView)
 
-
+       // 선택한 날짜를 받아옴
         var year = intent.getStringExtra("year").toString()
         var monthString = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
@@ -94,7 +94,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
                 }
             }
             2 -> {
-                var weather = data?.getStringExtra("weather").toString()
+                var weather = data!!.getStringExtra("weather").toString()
                 fName = "" + year + monthString + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
                 Toast.makeText(this, "onActivityresult" + weather, Toast.LENGTH_SHORT).show()
                 if (resultCode == Activity.RESULT_OK) {

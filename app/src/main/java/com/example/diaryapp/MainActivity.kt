@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     btn_login은 1번 방법,  btnGoogle은 2번 방법
      */
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

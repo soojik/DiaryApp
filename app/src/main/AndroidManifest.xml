@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DiaryApp">
         <activity android:name=".FeelingActivity" android:theme="@style/DialogTheme"/>
-        <activity android:name=".WeatherActivity" />
+        <activity android:name=".WeatherActivity" android:theme="@style/DialogTheme"/>
         <activity
             android:name=".DiaryActivity"
             android:label="@string/title_activity_diary"
