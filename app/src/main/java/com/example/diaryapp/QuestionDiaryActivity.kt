@@ -41,7 +41,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
         answerBtn = findViewById(R.id.answerBtn)
         diarySaveBtn = findViewById(R.id.diarySaveBtn)
         weatherView = findViewById(R.id.weatherView)
-
         feelingImgView = findViewById(R.id.feelingImgView)
 
 
@@ -146,25 +145,20 @@ class QuestionDiaryActivity : AppCompatActivity() {
     //저장한 날씨 설정하기
     fun setWeather(cYear : String, cMonth : String, cDay : String){
         fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "weather"+".txt"
-
         var weather = readFile(fName)
-
         Toast.makeText(this, "set :"+ weather +"   날씨 ", Toast.LENGTH_LONG).show()
 
-//한번에 이미지 불러오기
-            var loc = "@drawble/$weather"
-            var resID =  getResources().getIdentifier(loc,"drawble", this.getPackageName());
-            weatherView.setImageResource(resID)
+        if(weather == "")
+             weatherView.setImageResource(R.drawable.sunny)
 
-        //일일히 연결
-//        if(weather == "sunny")
-//            weatherView.setImageResource(R.drawable.sunny)
-//        if(weather == "cloudy1")
-//            weatherView.setImageResource(R.drawable.cloudy1)
-//        if(weather == "cloudy2")
-//            weatherView.setImageResource(R.drawable.cloudy2)
-//        else
-//            Toast.makeText(this, "없음"+ weather, Toast.LENGTH_SHORT).show()
+//한번에 이미지 불러오기
+        else {
+            val resName = "@drawable/$weather"
+            val packName = this.packageName
+            val resID = getResources().getIdentifier(resName, "drawable", packName);
+            weatherView.setImageResource(resID)
+        }
+
 
     }
 
