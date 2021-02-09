@@ -42,7 +42,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
         answerBtn = findViewById(R.id.answerBtn)
         diarySaveBtn = findViewById(R.id.diarySaveBtn)
         weatherView = findViewById(R.id.weatherView)
-
         feelingImgView = findViewById(R.id.feelingImgView)
 
 
