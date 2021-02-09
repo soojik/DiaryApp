@@ -61,9 +61,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
         setWeather(year, monthString, day)
 
         weatherView.setOnClickListener {
-            val intent = Intent(this, WeatherActivity::class.java)
+            var intent = Intent(this, WeatherActivity::class.java)
             startActivityForResult(intent,1)
-            Toast.makeText(this, "엑티비티 변환", Toast.LENGTH_SHORT).show()
         }
 
         feelingImgView.setOnClickListener {
