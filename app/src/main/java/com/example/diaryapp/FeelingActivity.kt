@@ -38,47 +38,47 @@ class FeelingActivity : AppCompatActivity() {
         val intent = Intent(this, QuestionDiaryActivity::class.java)
 
         imgViewHappy1.setOnClickListener {
-            intent.putExtra("img", "imgViewHappy1")
+            intent.putExtra("feeling", "happy_3")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewHappy2.setOnClickListener {
-            intent.putExtra("img", "imgViewHappy2")
+            intent.putExtra("feeling", "happy_2")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewHappy3.setOnClickListener {
-            intent.putExtra("img", "imgViewHappy3")
+            intent.putExtra("feeling", "happy_1")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewLove.setOnClickListener {
-            intent.putExtra("img", "imgViewLove")
+            intent.putExtra("feeling", "in_love")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewKiss.setOnClickListener {
-            intent.putExtra("img", "imgViewKiss")
+            intent.putExtra("feeling", "kissing")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewSoso.setOnClickListener {
-            intent.putExtra("img", "imgViewSoso")
+            intent.putExtra("feeling", "confused")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewCrying.setOnClickListener {
-            intent.putExtra("img", "imgViewCrying")
+            intent.putExtra("feeling", "crying")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewMad.setOnClickListener {
-            intent.putExtra("img", "imgViewMad")
+            intent.putExtra("feeling", "mad")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
         imgViewQuiet.setOnClickListener {
-            intent.putExtra("img", "imgViewQuiet")
+            intent.putExtra("feeling", "quiet")
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
