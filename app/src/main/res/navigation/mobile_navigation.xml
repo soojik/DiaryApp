@@ -10,9 +10,6 @@
         android:name="com.example.diaryapp.DiaryFragment"
         android:label="@string/menu_diary"
         tools:layout="@layout/fragment_diary" >
-        <action
-            android:id="@+id/action_navDiary_to_navQuestionDiary"
-            app:destination="@id/navQuestionDiary" />
     </fragment>
 
     <fragment
@@ -22,13 +19,9 @@
         tools:layout="@layout/fragment_todo" />
 
     <fragment
-        android:id="@+id/navQuestionDiary"
-        android:name="com.example.diaryapp.QuestionDiaryFragment"
-        android:label="일기, 질문"
-        tools:layout="@layout/fragment_question_diary" >
-        <action
-            android:id="@+id/action_navQuestionDiary_to_navDiary"
-            app:destination="@id/navDiary" />
-    </fragment>
+        android:id="@+id/navMyPage"
+        android:name="com.example.diaryapp.MypageFragment"
+        android:label="@string/menu_mypage"
+        tools:layout="@layout/fragment_mypage" />
 
 </navigation>

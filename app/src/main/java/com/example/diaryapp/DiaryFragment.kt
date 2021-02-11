@@ -24,9 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class DiaryFragment : Fragment() {
     lateinit var auth : FirebaseAuth
-    lateinit var btnLogout : Button
-    lateinit var btnFeeling : Button
-    lateinit var btnWeather : Button
     lateinit var calendarView: CalendarView
     lateinit var navController : NavController
     lateinit var db : FirebaseFirestore
@@ -55,9 +52,6 @@ class DiaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnLogout = view.findViewById(R.id.btnLogout)
-        btnFeeling = view.findViewById(R.id.btnFeeling)
-        btnWeather = view.findViewById(R.id.btnWeather)
         calendarView = view.findViewById(R.id.calendarView)
 
         navController = Navigation.findNavController(view)
@@ -87,27 +81,6 @@ class DiaryFragment : Fragment() {
                             }
                         }
             }
-            //navController.navigate(R.id.action_navDiary_to_navQuestionDiary)
-        }
-
-
-
-
-        btnLogout.setOnClickListener {
-            Toast.makeText(this.context, "로그아웃", Toast.LENGTH_SHORT).show()
-            auth.signOut()
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-//        btnWeather.setOnClickListener {
-//            val intent = Intent(activity, WeatherActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        btnFeeling.setOnClickListener {
-            val intent = Intent(activity, FeelingActivity::class.java)
-            startActivity(intent)
         }
     }
 }

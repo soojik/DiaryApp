@@ -12,6 +12,6 @@
             android:title="@string/menu_todo" />
         <item
             android:id="@+id/navMyPage"
-            android:title="@string/menu_setting" />
+            android:title="@string/menu_mypage" />
     </group>
 </menu>
