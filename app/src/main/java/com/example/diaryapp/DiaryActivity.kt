@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,12 +15,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 //이 Activity 위에서 Diary(캘린더), QuestionDiary(다이어리 작성)와 같은 Fragment들이 움직임
 class DiaryActivity : AppCompatActivity() {
     lateinit var toolbar : Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var headerView: View
+    lateinit var db : FirebaseFirestore
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -51,10 +54,23 @@ class DiaryActivity : AppCompatActivity() {
 
         //user랑 headerview는 드로어 부분에 보면 이름이랑 이메일 띄우는 TextView가 있는데 firebase 연결해서 사용자정보 불러와서 띄우려고 구현해놓은거
         val user = FirebaseAuth.getInstance().currentUser
+        db = FirebaseFirestore.getInstance()
 
         headerView = navView.getHeaderView(0)
         user?.let {
             headerView.findViewById<TextView>(R.id.userEmail).text = user.email
+            db.collection("users")
+                .whereEqualTo("email", user.email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents != null) {
+                        for (document in documents) {
+                            var get_user = document.data
+                            var name = get_user["name"].toString()
+                            headerView.findViewById<TextView>(R.id.userName).text = name
+                        }
+                    }
+                }
         }
     }
 
