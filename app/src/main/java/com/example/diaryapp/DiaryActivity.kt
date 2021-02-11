@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 //이 Activity 위에서 Diary(캘린더), QuestionDiary(다이어리 작성)와 같은 Fragment들이 움직임
 class DiaryActivity : AppCompatActivity() {
     lateinit var toolbar : Toolbar

@@ -24,6 +24,7 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 import java.io.FileInputStream
@@ -34,6 +35,10 @@ import java.util.concurrent.TimeUnit
 
 class QuestionDiaryActivity : AppCompatActivity() {
 
+    //var fName : String = ""
+
+    var userName : String = "kimswunie" //나중에 db에서 이름 정보 가져와서 바꿀 부분
+
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
     lateinit var yearTextView:TextView
@@ -42,7 +47,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     lateinit var answerEditText : EditText
     lateinit var answerBtn : Button
     lateinit var diarySaveBtn:Button
-    lateinit var weatherView : ImageView
+    lateinit var weatherImgView : ImageView
     lateinit var feelingImgView : ImageView
     lateinit var imgUploadBtn : Button
     lateinit var cameraBtn : Button
@@ -74,12 +79,18 @@ class QuestionDiaryActivity : AppCompatActivity() {
     private var playTime: Int = 0
     private var endTime: Int = 0
 
+////////////////////////////////////////////
+    lateinit var db : FirebaseFirestore
+    ///////////////////////////////
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_diary)
 
-        //이건 액티비티였을 때 받아와서 하는거고 프레그먼트로 계속 갈거면 이 파일 자체를 삭제해도 될 것 같아요~
-        //왜냐면 navigation diaryFragment에서 말했던것처럼 calenderView누르면 DiaryFragment에서 questionDiary로 프레그먼트 전환되도록 해놔서요!
+
+
+
+
         monthTextView = findViewById<TextView>(R.id.monthTextView)
         dayTextView = findViewById<TextView>(R.id.dayTextView)
         yearTextView = findViewById<TextView>(R.id.yearTextView)
@@ -88,7 +99,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         answerEditText = findViewById<EditText>(R.id.answerEditText)
         answerBtn = findViewById(R.id.answerBtn)
         diarySaveBtn = findViewById(R.id.diarySaveBtn)
-        weatherView = findViewById(R.id.weatherView)
+        weatherImgView = findViewById(R.id.weatherImgView)
         feelingImgView = findViewById(R.id.feelingImgView)
         imgUploadBtn = findViewById(R.id.imgUploadBtn)
         cameraBtn = findViewById(R.id.cameraBtn)
@@ -102,42 +113,46 @@ class QuestionDiaryActivity : AppCompatActivity() {
         seekbar = findViewById(R.id.seekBar)
         recHearSoundBtn = findViewById(R.id.recHearSoundBtn)
         mr = MediaRecorder()
-        mp = MediaPlayer()//.create(this, R.raw.myrec)
+        mp = MediaPlayer()
         seekbar.isClickable = false
         seekbar.isEnabled = true
 
+        //activity_question_diary.xml에서 선택한 년,월,일 변수에 저장
         startTime = findViewById(R.id.txtStartTime)
         songTime = findViewById(R.id.txtSongTime)
 
         var year = intent.getStringExtra("year").toString()
-        var monthString = intent.getStringExtra("month").toString()
+        var month = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
         var userName = intent.getStringExtra("userName").toString()
 
+        //선택한 날짜 설정
         yearTextView.setText(year + "년")
-        monthTextView.setText(monthString + "월")
+        monthTextView.setText(month + "월")
         dayTextView.setText(day + "일")
 
+        //해당 날짜에 저장된 질문과 답변 불러오기
+        checkedDayQuestion(year, month, day)
+        checkedDayAnswer(year, month, day)
 
-        checkedDayQuestion(year, monthString, day)
-        checkedDayAnswer(year, monthString, day)
+        //해당 날짜에 저장된 일기 불러오기
+        readDiary(year,month,day)
+        saveDiary( year + month + day + "_" + userName + "_" + "Diary" + ".txt",diaryEditView)
 
-        readDiary(year,monthString,day)
-        saveDiary( year + monthString + day + "_" + userName + "_" + "Diary" + ".txt",diaryEditView)
+        //해당 날짜에 저장된 날씨와 감정 불러오기
+        setFeelingOrWeather(year, month, day, "feeling")
+        setFeelingOrWeather(year, month, day, "weather")
 
-
-        setFeelingOrWeather(year, monthString, day, "feeling")
-        setFeelingOrWeather(year, monthString, day, "weather")
-
+        //감정 표현 이미지 변경하기
         feelingImgView.setOnClickListener {
-            val intent = Intent(this, FeelingActivity::class.java)
-            startActivityForResult(intent, 1)
+            val intent = Intent(this, FeelingActivity::class.java) //감정 선택할 수 있는 액티비티로 변환
+             startActivityForResult(intent, 1)
         }
 
-        weatherView.setOnClickListener {
-            val intent = Intent(this, WeatherActivity::class.java)
+        //날씨 이미지 변경하기
+        weatherImgView.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java) //날씨 선택할 수 있는 액티비티로 변환
             startActivityForResult(intent,2)
-            Toast.makeText(this, "엑티비티 변환", Toast.LENGTH_SHORT).show()
         }
 
         if (checkPermission(STORAGE_PERMISSION, FLAG_PERM_STORAGE)) {
@@ -185,22 +200,21 @@ class QuestionDiaryActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         var year = intent.getStringExtra("year").toString()
-        var monthString = intent.getStringExtra("month").toString()
+        var month = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
         var userName = intent.getStringExtra("userName").toString()
 
         when (requestCode) {
             1 -> {
                 val feeling = data!!.getStringExtra("feeling").toString()
-                var fName = "" + year + monthString + day + "_" + userName + "_" + "feeling" + ".txt" //기분 파일
+                var fName = "" + year + month + day + "_" + userName + "_" + "feeling" + ".txt" //기분 파일
                 if (resultCode == Activity.RESULT_OK) {
                     saveFeelingOrWeather(fName, feeling, "feeling")
                 }
             }
             2 -> {
                 val weather = data?.getStringExtra("weather").toString()
-                var fName = "" + year + monthString + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
-                Toast.makeText(this, "onActivityresult" + weather, Toast.LENGTH_SHORT).show()
+                var fName = "" + year + month + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
                 if (resultCode == Activity.RESULT_OK) {
                     saveFeelingOrWeather(fName, weather, "weather")
                 }
@@ -230,7 +244,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     fun saveFeelingOrWeather(fName : String, whatForW : String, ForW : String){
 
         var year = intent.getStringExtra("year").toString()
-        var monthString = intent.getStringExtra("month").toString()
+        var month = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
 
         try{
@@ -242,7 +256,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         } catch(e : Exception){
             e.printStackTrace()
         }
-        setFeelingOrWeather(year, monthString, day, ForW)
+        setFeelingOrWeather(year, month, day, ForW)
     }
 
     //기분, 날씨 화면에 설정
@@ -256,21 +270,21 @@ class QuestionDiaryActivity : AppCompatActivity() {
             fName = "" + Year + Month + Day + "_" + userName + "_" + "weather" + ".txt"
         }
 
-        var whatForW = readFile(fName)
+        var whatForW = readFile(fName) //저장된 이미지 파일명 텍스트 불러오기
 
-        if(whatForW == ""){
+        if(whatForW == ""){ //저장된 이미지가 없을 경우 기본 이미지 설정
             if(ForW=="feeling"){
                 feelingImgView.setImageResource(R.drawable.happy_3)
             }else{
-                weatherView.setImageResource(R.drawable.sunny)
+                weatherImgView.setImageResource(R.drawable.sunny)
             }
-        }else{
+        }else{ // 저장된 이미지가 있을 경우 해당 이미지 설정
             var loc = "@drawable/$whatForW"
             var resID = getResources().getIdentifier(loc, "drawable", this.packageName)
             if (ForW == "feeling") {
                 feelingImgView.setImageResource(resID)
             } else {
-                weatherView.setImageResource(resID)
+                weatherImgView.setImageResource(resID)
             }
         }
     }
@@ -279,19 +293,39 @@ class QuestionDiaryActivity : AppCompatActivity() {
         var userName = intent.getStringExtra("userName").toString()
         var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
 
-        val randomNum = Random()
-        val num = randomNum.nextInt(30)
-        val qarray : Array<String> = resources.getStringArray(R.array.question)
-        var qstr = qarray[num] //랜덤으로 질문 저장
 
-        var str = readFile(fName)
 
-        if(str==""){ //질문이 안만들어졌으면 새로 질문을 만들고 질문 파일 생성
-            questionTextView.text = qstr
-            saveFileTextView(fName, questionTextView)
-        } else{ //질문 만들어져있으면 불러오기
-            questionTextView.text = str
-        }
+        db = FirebaseFirestore.getInstance()
+
+        val docRef = db.collection("question").document(cMonth)
+        docRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+
+                        var get_user = document.data
+                        var qstr = get_user?.get("$cDay").toString()
+                        questionTextView.setText(qstr)
+
+
+                    }
+                }
+                .addOnFailureListener { exception ->
+
+                }
+
+//        val randomNum = Random()
+//        val num = randomNum.nextInt(30)
+//        val qarray : Array<String> = resources.getStringArray(R.array.question)
+//        var qstr = qarray[num] //랜덤으로 질문 저장
+//
+//        var str = readFile(fName)
+//
+//        if(str==""){ //질문이 안만들어졌으면 새로 질문을 만들고 질문 파일 생성
+//            questionTextView.text = qstr
+//            saveFileTextView(fName, questionTextView)
+//        } else{ //질문 만들어져있으면 불러오기
+//            questionTextView.text = str
+//        }
     }
 
     fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변
@@ -354,6 +388,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         }
     }
 
+    // 저장된 일기 읽는 함수
     // 이미지 업로드
     fun setViews(){ // 이미지 업로드 함수
         cameraBtn.setOnClickListener {
@@ -465,8 +500,9 @@ class QuestionDiaryActivity : AppCompatActivity() {
         diaryEditView.setText(str)
     }
 
+    //일기 저장하는 함수
     fun saveDiary(fName : String, widget : EditText){
-        diarySaveBtn.setOnClickListener{
+        diarySaveBtn.setOnClickListener{ //저장 버튼을 누를 시 저장
 
             try{
                 var fos : FileOutputStream? = null

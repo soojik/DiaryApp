@@ -59,7 +59,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/weatherView"
+                    android:id="@+id/weatherImgView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="답변 저장"
-                app:backgroundTint="#FF9800" />
+                app:backgroundTint="#DCD6F7" />
 
             <Button
                 android:id="@+id/imgUploadBtn"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="이미지 업로드"
-                app:backgroundTint="#FF9800" />
+                app:backgroundTint="#DCD6F7" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="일기 저장"
-                app:backgroundTint="#FF9800" />
+                app:backgroundTint="#DCD6F7" />
 
             <Button
                 android:id="@+id/recordBtn"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="음성 녹음"
-                app:backgroundTint="#FF9800" />
+                app:backgroundTint="#DCD6F7" />
 
             <Button
                 android:id="@+id/recStartBtn"

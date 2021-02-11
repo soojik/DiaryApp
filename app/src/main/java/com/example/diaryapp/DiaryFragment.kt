@@ -63,6 +63,7 @@ class DiaryFragment : Fragment() {
         navController = Navigation.findNavController(view)
 
         calendarView.setOnDateChangeListener {  view, year, month, day->
+
             val intent = Intent(getActivity(), QuestionDiaryActivity::class.java)
             intent.putExtra("year", year.toString())
             intent.putExtra("month", (month+1).toString())
