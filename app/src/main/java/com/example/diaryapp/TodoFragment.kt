@@ -32,9 +32,6 @@ class TodoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        list.add(TodoList("할일1"))
-        list.add(TodoList("할일2"))
     }
 
     override fun onCreateView(
