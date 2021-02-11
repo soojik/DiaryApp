@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -23,6 +24,8 @@ class DiaryActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     lateinit var headerView: View
     lateinit var db : FirebaseFirestore
+
+    var mBackWait : Long = 0
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -85,5 +88,16 @@ class DiaryActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        if(System.currentTimeMillis() - mBackWait > 2000){
+            mBackWait = System.currentTimeMillis()
+            Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        } else{
+            ActivityCompat.finishAffinity(this)
+            System.exit(0)
+        }
     }
 }
