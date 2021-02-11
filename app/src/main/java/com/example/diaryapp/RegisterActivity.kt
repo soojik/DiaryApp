@@ -70,10 +70,10 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         //db에 등록
                         var result = HashMap<String, String>()
+                        result.put("email", email)
                         result.put("name", name)
                         result.put("PhoneNum", num)
-                        result.put("email", email)
-                        db.collection("users").document(name)
+                        db.collection("users").document(email)
                             .set(result)
                             .addOnSuccessListener {
                                 //db 등록 성공
