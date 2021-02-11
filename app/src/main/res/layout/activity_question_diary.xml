@@ -110,6 +110,40 @@
                 android:visibility="gone"
                 app:srcCompat="@android:drawable/picture_frame" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cameraBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="카메라"
+                    android:visibility="gone"
+                    app:backgroundTint="#FF9800" />
+
+                <Button
+                    android:id="@+id/galleryBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="갤러리"
+                    android:visibility="gone"
+                    app:backgroundTint="#FF9800" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageImgView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                tools:srcCompat="@tools:sample/avatars" />
+
             <EditText
                 android:id="@+id/diaryEditView"
                 android:layout_width="match_parent"
@@ -135,24 +169,44 @@
                 android:text="음성 녹음"
                 app:backgroundTint="#FF9800" />
 
+            <Button
+                android:id="@+id/recStartBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="녹음 시작"
+                android:visibility="gone"
+                app:backgroundTint="#FF9800" />
+
+            <Button
+                android:id="@+id/recStopBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="정지"
+                android:visibility="gone"
+                app:backgroundTint="#FF9800" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/recHearStartBtn"
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_baseline_motion_photos_on_24"
                     tools:ignore="VectorDrawableCompat" />
 
                 <ImageButton
-                    android:id="@+id/pauseBtn"
+                    android:id="@+id/recHearStopBtn"
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_baseline_pause_circle_outline_24"
                     tools:ignore="VectorDrawableCompat" />
 
@@ -160,15 +214,31 @@
                     android:id="@+id/seekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_weight="4" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/recHearSoundBtn"
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_baseline_volume_down_24"
                     tools:ignore="VectorDrawableCompat" />
+
+                <TextView
+                    android:id="@+id/txtStartTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="0 min, 0 sec" />
+                <TextView
+                    android:id="@+id/txtSongTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="0 min, 0 sec " />
+
             </LinearLayout>
 
         </LinearLayout>
