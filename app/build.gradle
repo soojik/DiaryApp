@@ -17,6 +17,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //프로젝트에 포함된 총 메소드의 갯수가 65,536개가 넘어가면 발생하는 오류 해결하기 위해 dex 파일 여러개 사용하도록 함
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -56,6 +59,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
 
+    //firebase db
+    implementation 'com.google.firebase:firebase-firestore:21.2.1'
+
     //firebase auth
     implementation platform('com.google.firebase:firebase-bom:26.4.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -68,4 +74,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+
+    implementation 'com.android.support:multidex:1.0.3' // << 추가
 }
