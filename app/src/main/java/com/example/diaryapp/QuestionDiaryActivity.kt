@@ -23,6 +23,8 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -31,9 +33,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class QuestionDiaryActivity : AppCompatActivity() {
-
-    //var fName : String = ""
-    var userName : String = "kimswunie" //나중에 db에서 이름 정보 가져와서 바꿀 부분
 
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
@@ -103,7 +102,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         seekbar = findViewById(R.id.seekBar)
         recHearSoundBtn = findViewById(R.id.recHearSoundBtn)
         mr = MediaRecorder()
-        mp = MediaPlayer.create(this, R.raw.myrec)
+        mp = MediaPlayer()//.create(this, R.raw.myrec)
         seekbar.isClickable = false
         seekbar.isEnabled = true
 
@@ -113,6 +112,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         var year = intent.getStringExtra("year").toString()
         var monthString = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
+        var userName = intent.getStringExtra("userName").toString()
 
         yearTextView.setText(year + "년")
         monthTextView.setText(monthString + "월")
@@ -187,6 +187,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         var year = intent.getStringExtra("year").toString()
         var monthString = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
+        var userName = intent.getStringExtra("userName").toString()
 
         when (requestCode) {
             1 -> {
@@ -246,6 +247,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
     //기분, 날씨 화면에 설정
     fun setFeelingOrWeather(Year : String, Month : String, Day : String, ForW : String) {
+        var userName = intent.getStringExtra("userName").toString()
+
         var fName : String
         if (ForW == "feeling") {
             fName = "" + Year + Month + Day + "_" + userName + "_" + "feeling" + ".txt"
@@ -273,6 +276,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     }
 
     fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문
+        var userName = intent.getStringExtra("userName").toString()
         var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //질문 파일 이름
 
         val randomNum = Random()
@@ -291,6 +295,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     }
 
     fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변
+        var userName = intent.getStringExtra("userName").toString()
         var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
 
         var str = readFile(fName)
@@ -453,6 +458,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
     // 일기
     fun readDiary(cYear : String, cMonth : String, cDay : String){ //일기
+        var userName = intent.getStringExtra("userName").toString()
         var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Diary" + ".txt" //일기 파일 이름
 
         var str = readFile(fName)
