@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        login_email = findViewById(R.id.login_email)
-        login_password = findViewById(R.id.login_password)
+        login_email = findViewById(R.id.loginEmail)
+        login_password = findViewById(R.id.loginPassword)
 
-        btn_signUp = findViewById(R.id.btn_signUp)
-        btn_login = findViewById(R.id.btn_login)
+        btn_signUp = findViewById(R.id.btnSignUp)
+        btn_login = findViewById(R.id.btnLogin)
         btnGoogle = findViewById(R.id.btnGoogle)
 
         //firebase_web_client_id는 원래 자동으로 string에 추가되어야하는데 안돼서 직접 (project로 바꿔서!) app->google-services.json에서 가져옴

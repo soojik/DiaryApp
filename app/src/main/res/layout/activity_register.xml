@@ -7,7 +7,7 @@
     tools:context=".RegisterActivity">
 
     <TextView
-        android:id="@+id/text_register"
+        android:id="@+id/textRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/register_email"
+        android:id="@+id/registerEmail"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -26,63 +26,63 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_register" />
+        app:layout_constraintTop_toBottomOf="@id/textRegister" />
 
 
     <EditText
-        android:id="@+id/register_password"
+        android:id="@+id/registerPassword"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="비밀번호"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@id/register_email"
-        app:layout_constraintStart_toStartOf="@id/register_email"
-        app:layout_constraintTop_toBottomOf="@id/register_email" />
+        app:layout_constraintEnd_toEndOf="@id/registerEmail"
+        app:layout_constraintStart_toStartOf="@id/registerEmail"
+        app:layout_constraintTop_toBottomOf="@id/registerEmail" />
 
     <EditText
-        android:id="@+id/register_passwordChk"
+        android:id="@+id/registerPasswordChk"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="비밀번호 확인"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@id/register_password"
-        app:layout_constraintStart_toStartOf="@id/register_password"
-        app:layout_constraintTop_toBottomOf="@id/register_password" />
+        app:layout_constraintEnd_toEndOf="@id/registerPassword"
+        app:layout_constraintStart_toStartOf="@id/registerPassword"
+        app:layout_constraintTop_toBottomOf="@id/registerPassword" />
 
     <EditText
-        android:id="@+id/register_name"
+        android:id="@+id/registerName"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="이름"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@id/register_passwordChk"
-        app:layout_constraintStart_toStartOf="@id/register_passwordChk"
-        app:layout_constraintTop_toBottomOf="@id/register_passwordChk" />
+        app:layout_constraintEnd_toEndOf="@id/registerPasswordChk"
+        app:layout_constraintStart_toStartOf="@id/registerPasswordChk"
+        app:layout_constraintTop_toBottomOf="@id/registerPasswordChk" />
 
     <EditText
-        android:id="@+id/register_num"
+        android:id="@+id/registerNum"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="전화번호"
         android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="@id/register_name"
-        app:layout_constraintStart_toStartOf="@id/register_name"
-        app:layout_constraintTop_toBottomOf="@id/register_name" />
+        app:layout_constraintEnd_toEndOf="@id/registerName"
+        app:layout_constraintStart_toStartOf="@id/registerName"
+        app:layout_constraintTop_toBottomOf="@id/registerName" />
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btnRegister"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="완료"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="@id/register_num"
-        app:layout_constraintStart_toStartOf="@id/register_num"
-        app:layout_constraintTop_toBottomOf="@id/register_num" />
+        app:layout_constraintEnd_toEndOf="@id/registerNum"
+        app:layout_constraintStart_toStartOf="@id/registerNum"
+        app:layout_constraintTop_toBottomOf="@id/registerNum" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
