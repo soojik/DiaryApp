@@ -87,10 +87,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_diary)
 
-
-
-
-
         monthTextView = findViewById<TextView>(R.id.monthTextView)
         dayTextView = findViewById<TextView>(R.id.dayTextView)
         yearTextView = findViewById<TextView>(R.id.yearTextView)
