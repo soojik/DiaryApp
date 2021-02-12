@@ -36,6 +36,7 @@
         android:layout_marginTop="40dp"
         android:hint="아이디(이메일)"
         android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MainTitle" />
@@ -47,6 +48,7 @@
         android:layout_marginTop="30dp"
         android:hint="비밀번호"
         android:inputType="textPassword"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginEmail" />

@@ -125,8 +125,7 @@ class TodoFragment : Fragment() {
         }
     }
 
-
-    fun valid(TodoContent: String) : Boolean {
+    private fun valid(TodoContent: String) : Boolean {
         var valid = true
 
         sqlDB = myHelper.readableDatabase
