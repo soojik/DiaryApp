@@ -93,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="답변 저장"
-                app:backgroundTint="#DCD6F7" />
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF" />
 
             <Button
                 android:id="@+id/imgUploadBtn"
@@ -101,7 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="이미지 업로드"
-                app:backgroundTint="#DCD6F7" />
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -122,6 +124,7 @@
                     android:layout_weight="1"
                     android:text="카메라"
                     android:visibility="gone"
+                    android:textColor="#7E7B7B"
                     app:backgroundTint="#FF9800" />
 
                 <Button
@@ -131,6 +134,7 @@
                     android:layout_weight="1"
                     android:text="갤러리"
                     android:visibility="gone"
+                    android:textColor="#7E7B7B"
                     app:backgroundTint="#FF9800" />
 
             </LinearLayout>
@@ -159,7 +163,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="일기 저장"
-                app:backgroundTint="#DCD6F7" />
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF" />
 
             <Button
                 android:id="@+id/recordBtn"
@@ -167,7 +172,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="음성 녹음"
-                app:backgroundTint="#DCD6F7" />
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE0EF" />
 
             <Button
                 android:id="@+id/recStartBtn"
@@ -176,7 +182,8 @@
                 android:layout_weight="1"
                 android:text="녹음 시작"
                 android:visibility="gone"
-                app:backgroundTint="#FF9800" />
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF" />
 
             <Button
                 android:id="@+id/recStopBtn"
@@ -185,7 +192,8 @@
                 android:layout_weight="1"
                 android:text="정지"
                 android:visibility="gone"
-                app:backgroundTint="#FF9800" />
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -214,8 +222,8 @@
                     android:id="@+id/seekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_weight="4" />
+                    android:layout_weight="4"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/recHearSoundBtn"
@@ -230,14 +238,15 @@
                     android:id="@+id/txtStartTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="0 min, 0 sec" />
+                    android:text="0 min, 0 sec"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/txtSongTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="0 min, 0 sec " />
+                    android:text="0 min, 0 sec "
+                    android:visibility="gone" />
 
             </LinearLayout>
 
