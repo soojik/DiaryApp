@@ -78,13 +78,6 @@ class DiaryActivity : AppCompatActivity() {
         }
     }
 
-    //이건 오른쪽 메뉴 뜨게 하는건데 이거 사실 지금은 안써서 지워도 되고.. 어떻게 하져
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
     //이것도 네비게이터에 필요한거
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

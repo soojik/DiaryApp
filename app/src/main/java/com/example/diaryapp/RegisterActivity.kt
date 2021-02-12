@@ -35,16 +35,16 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        register_email = findViewById(R.id.register_email)
-        register_password = findViewById(R.id.register_password)
-        register_passwordChk = findViewById(R.id.register_passwordChk)
-        register_name = findViewById(R.id.register_name)
-        register_num = findViewById(R.id.register_num)
+        register_email = findViewById(R.id.registerEmail)
+        register_password = findViewById(R.id.registerPassword)
+        register_passwordChk = findViewById(R.id.registerPasswordChk)
+        register_name = findViewById(R.id.registerName)
+        register_num = findViewById(R.id.registerNum)
 
         email = register_email.text.toString()
         password = register_password.text.toString()
 
-        btn_register = findViewById(R.id.btn_register)
+        btn_register = findViewById(R.id.btnRegister)
 
         auth = FirebaseAuth.getInstance()
 
