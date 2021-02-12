@@ -50,9 +50,9 @@
     <Button
         android:id="@+id/btnEditpass"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:layout_marginTop="1dp"
-        android:text="  비밀번호 수정"
+        android:text="  비밀번호 수정\n (구글 로그인은 해당 안됨)"
         android:textSize="20dp"
         android:gravity="start|center"
         android:background="#FFFFFF"

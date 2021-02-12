@@ -11,17 +11,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TodoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-
 //To-do 리스트 작성창
 class TodoFragment : Fragment() {
     lateinit var recyclerView : RecyclerView

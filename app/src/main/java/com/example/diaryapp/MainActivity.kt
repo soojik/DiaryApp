@@ -58,20 +58,25 @@ class MainActivity : AppCompatActivity() {
 
         //1.이메일+비밀번호 로그인
         btn_login.setOnClickListener {
-            auth.signInWithEmailAndPassword(login_email.text.toString(), login_password.text.toString())
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        Toast.makeText(baseContext, "로그인 완료", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, DiaryActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "아이디 또는 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            if(login_email.text.toString()=="" || login_password.text.toString()==""){
+                Toast.makeText(this, "이메일, 비밀번호 칸을 모두 입력하세요.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                auth.signInWithEmailAndPassword(login_email.text.toString(), login_password.text.toString())
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmail:success")
+                                Toast.makeText(baseContext, "로그인 완료", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, DiaryActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithEmail:failure", task.exception)
+                                Toast.makeText(baseContext, "아이디 또는 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+            }
         }
 
         btn_signUp.setOnClickListener {
