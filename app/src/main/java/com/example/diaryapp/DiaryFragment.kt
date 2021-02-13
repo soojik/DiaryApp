@@ -24,10 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore
  */
 
 class DiaryFragment : Fragment() {
-    lateinit var auth : FirebaseAuth
+    lateinit var auth: FirebaseAuth
     lateinit var calendarView: CalendarView
-    lateinit var navController : NavController
-    lateinit var db : FirebaseFirestore
+    lateinit var navController: NavController
+    lateinit var db: FirebaseFirestore
 
     /*
     생명주기가 이 셋으로 따지자면 onCreate -> onCreateView -> onViewCreated 순인데 view 불러오고, onViewCreated에서는 만들어진 view에서
@@ -41,8 +41,8 @@ class DiaryFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
 
@@ -58,30 +58,19 @@ class DiaryFragment : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-        calendarView.setOnDateChangeListener {  view, year, month, day->
+        calendarView.setOnDateChangeListener { view, year, month, day ->
 
-            val intent = Intent(getActivity(), QuestionDiaryActivity::class.java)
+            val intent = Intent(activity, QuestionDiaryActivity::class.java)
             intent.putExtra("year", year.toString())
-            intent.putExtra("month", (month+1).toString())
+            intent.putExtra("month", (month + 1).toString())
             intent.putExtra("day", day.toString())
 
             val user = FirebaseAuth.getInstance().currentUser
             db = FirebaseFirestore.getInstance()
 
-            user?.let{
-                db.collection("users")
-                        .whereEqualTo("email", user.email)
-                        .get()
-                        .addOnSuccessListener { documents ->
-                            if(documents != null){
-                                for(document in documents){
-                                    var get_user = document.data
-                                    val email = get_user["email"].toString()
-                                    intent.putExtra("userEmail", email)
-                                    startActivity(intent)
-                                }
-                            }
-                        }
+            user?.let {
+                intent.putExtra("userEmail", user.email)
+                startActivity(intent)
             }
         }
     }
