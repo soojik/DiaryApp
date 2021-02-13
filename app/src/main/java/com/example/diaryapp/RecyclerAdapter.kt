@@ -31,7 +31,6 @@ class RecyclerAdapter(val items: ArrayList<TodoList>) :
                     val myHelper = user?.email?.let { it1 -> myDBHelper(view.context, it1 + "_TodoDB") }
                     val sqlDB = myHelper?.writableDatabase
                     sqlDB?.execSQL("DELETE FROM TodoTBL WHERE TodoContent = '" + item.todoName + "';")
-                    Toast.makeText(view.context, "${item.todoName} 삭제 버튼", Toast.LENGTH_SHORT).show()
                     items.removeAt(position)
                     notifyDataSetChanged()
                 }
