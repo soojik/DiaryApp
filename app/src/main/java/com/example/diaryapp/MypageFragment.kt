@@ -1,5 +1,6 @@
 package com.example.diaryapp
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.finishAffinity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -75,6 +78,7 @@ class MypageFragment : Fragment() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "Email sent.")
+                            auth.signOut()
                             val intent = Intent(activity, MainActivity::class.java)
                             startActivity(intent)
                         }
@@ -90,6 +94,7 @@ class MypageFragment : Fragment() {
             auth.signOut()
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
 
         btnUnsubscribe.setOnClickListener {
