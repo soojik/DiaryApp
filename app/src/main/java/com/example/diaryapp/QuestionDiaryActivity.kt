@@ -60,6 +60,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     lateinit var mp : MediaPlayer
     lateinit var handler: Handler
 
+    // 카메라, 저장소 권한, 플래그값 정의
     val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
     val STORAGE_PERMISSION = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE
@@ -159,6 +160,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
             setViews()
         }
 
+        // 이미지 업로드 버튼
         imgUploadBtn.setOnClickListener {
             imgUploadBtn.visibility = View.GONE
             cameraBtn.visibility = View.VISIBLE
@@ -166,7 +168,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
             imageImgView.visibility = View.VISIBLE
         }
 
-
+        // 음성 녹음 버튼
         recordBtn.setOnClickListener {
             recordBtn.visibility = View.GONE
             recStartBtn.visibility = View.VISIBLE
@@ -369,8 +371,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
         startActivityForResult(intent, FLAG_REQ_STORAGE)
     }
 
-
-    fun saveImageFile(filename:String, mimeType:String, bitmap: Bitmap) : Uri? { // 사진 저장 함수
+    // 사진 저장 함수
+    fun saveImageFile(filename:String, mimeType:String, bitmap: Bitmap) : Uri? {
         var values = ContentValues()
         values.put(MediaStore.Images.Media.DISPLAY_NAME, filename)
         values.put(MediaStore.Images.Media.MIME_TYPE, mimeType)
@@ -476,7 +478,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
 
     // 음성녹음
-    fun startRecording(){
+    fun startRecording(){ // 녹음 시작 함수
         mr.setAudioSource(MediaRecorder.AudioSource.MIC)
         mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
         mr.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
@@ -491,7 +493,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         recStopBtn.visibility = View.VISIBLE
     }
 
-    fun stopRecording(){
+    fun stopRecording(){ // 녹음 정지 함수
         mr.stop()
         recStopBtn.visibility = View.GONE
         recStartBtn.visibility = View.VISIBLE
@@ -503,7 +505,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         recStopBtn.isEnabled = false
     }
 
-    fun playRecord(){
+    fun playRecord(){ // 음성 재생 함수
         Toast.makeText(this, "음성 재생", Toast.LENGTH_SHORT).show()
         mp.start()
         endTime = mp.duration
@@ -516,7 +518,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         recHearStartBtn.isEnabled = false
     }
 
-    fun stopRecord() {
+    fun stopRecord() { // 음성 정지 함수
         mp.pause()
         recHearStopBtn.isEnabled = false
         recHearStartBtn.isEnabled = true
