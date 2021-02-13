@@ -29,17 +29,6 @@ class DiaryFragment : Fragment() {
     lateinit var navController: NavController
     lateinit var db: FirebaseFirestore
 
-    /*
-    생명주기가 이 셋으로 따지자면 onCreate -> onCreateView -> onViewCreated 순인데 view 불러오고, onViewCreated에서는 만들어진 view에서
-    레이아웃 요소 바인딩 해주는거. navController는 mobile_navigation에서 프레그먼트가 diary -> questiondiary로 넘어가는 행동을
-    action_navDiary_to_navQuestionDiary라는 id로 설정해줬는데, 저번에 activity에서 구현했던 거랑 똑같이 calenderView를 누르면 넘어가도록
-    말 그대로 프레그먼트 안내해주는 역할
-     */
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -58,6 +47,8 @@ class DiaryFragment : Fragment() {
 
         navController = Navigation.findNavController(view)
 
+        //calendar 선택하면 년, 월, 일 정보 받아와 QuestionDiaryActivity에 데이터 전달
+        //사용자 이메일을 이용해 내부 저장소에 일기 내용을 저장하기 때문에 함께 QuestionDiaryActivity로 데이터 전달
         calendarView.setOnDateChangeListener { view, year, month, day ->
 
             val intent = Intent(activity, QuestionDiaryActivity::class.java)

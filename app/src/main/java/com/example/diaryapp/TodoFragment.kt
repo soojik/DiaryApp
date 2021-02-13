@@ -21,11 +21,9 @@ import java.time.LocalDate
 
 //To-do 리스트 작성창
 class TodoFragment : Fragment() {
-    val TAG = "TodoFragment"
     lateinit var recyclerView: RecyclerView
     lateinit var btnTodo: ImageButton
     lateinit var edtTodo: EditText
-    lateinit var name: String
 
     lateinit var db: FirebaseFirestore
 
@@ -34,15 +32,10 @@ class TodoFragment : Fragment() {
 
     val list = ArrayList<TodoList>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_todo, container, false)
     }
 
@@ -56,21 +49,7 @@ class TodoFragment : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser
         db = FirebaseFirestore.getInstance()
 
-        user?.let {
-            db.collection("users")
-                    .whereEqualTo("email", user.email)
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        if (documents != null) {
-                            for (document in documents) {
-                                var get_user = document.data
-                                var get_name = get_user["name"].toString()
-                                name = get_name
-                            }
-                        }
-                    }
-        }
-
+        //DBhelper 클래스로 한 기기로 두개의 계정을 운영할 가능성이 있어, 사용자 이메일을 받아와 파일 이름에 저장
         user?.let{
             myHelper = myDBHelper(view.context, user.email + "_TodoDB")
         }
@@ -80,6 +59,7 @@ class TodoFragment : Fragment() {
             adapter = RecyclerAdapter(list)
         }
 
+        //처음 화면 불러올 때 내부 저장소에 저장된 DB 파일 모두 recyclerView에 올리기
         sqlDB = myHelper.readableDatabase
         var cursor: Cursor
         cursor = sqlDB.rawQuery("SELECT * FROM TodoTBL;", null)
@@ -93,6 +73,7 @@ class TodoFragment : Fragment() {
         cursor.close()
         sqlDB.close()
 
+        //+버튼 클릭하면 valid 함수로 같은 내용이 DB에 있는지 확인한 후 없으면 DB에 저장하고 현재 나타나있는 리스트 초기화한 다음 다시 DB에서 정보 불러오기
         btnTodo.setOnClickListener {
             val TodoContent = edtTodo.text.toString()
 
@@ -116,15 +97,14 @@ class TodoFragment : Fragment() {
 
                     cursor.close()
                     sqlDB.close()
-
-                    Toast.makeText(activity, "입력됨", Toast.LENGTH_SHORT).show()
                 }
-            } else {
+            } else {    //edtTodo에 아무것도 입력하지 않았을 때
                 Toast.makeText(activity, "칸을 채워주세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    //DB에 같은 내용이 올라와있으면 추가할 수 없도록
     private fun valid(TodoContent: String) : Boolean {
         var valid = true
 

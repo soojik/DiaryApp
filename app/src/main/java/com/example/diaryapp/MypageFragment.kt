@@ -27,10 +27,6 @@ class MypageFragment : Fragment() {
     lateinit var auth : FirebaseAuth
     lateinit var db : FirebaseFirestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -72,12 +68,14 @@ class MypageFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+        //비밀번호 재설정 위해 회원가입시 등록된 이메일로 링크 보내기
         btnEditpass.setOnClickListener {
             if (user != null) {
                 auth.sendPasswordResetEmail(user.email.toString())
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "Email sent.")
+                            Toast.makeText(this.context, "로그아웃", Toast.LENGTH_SHORT).show()
                             auth.signOut()
                             val intent = Intent(activity, MainActivity::class.java)
                             startActivity(intent)
@@ -89,6 +87,7 @@ class MypageFragment : Fragment() {
             }
         }
 
+        //로그아웃
         btnLogout.setOnClickListener {
             Toast.makeText(this.context, "로그아웃", Toast.LENGTH_SHORT).show()
             auth.signOut()
@@ -97,6 +96,7 @@ class MypageFragment : Fragment() {
             activity?.finish()
         }
 
+        //회원 탈퇴
         btnUnsubscribe.setOnClickListener {
             if (user != null) {
                 //users DB에 저장했던 유저 정보 이메일로 찾아서 먼저 삭제

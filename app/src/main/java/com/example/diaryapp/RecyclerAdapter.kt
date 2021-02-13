@@ -24,6 +24,7 @@ class RecyclerAdapter(val items: ArrayList<TodoList>) :
         fun bind(item: TodoList) {
             view.findViewById<TextView>(R.id.todoItem).text = item.todoName
 
+            //리스트에 함께 생성되는 삭제 버튼 클릭하면 DB 파일에서 정보 삭제하고, 현재 나타내지는 리스트에서도 삭제
             view.findViewById<ImageButton>(R.id.btnDelete).setOnClickListener {
                 var position = adapterPosition
                 if(position != RecyclerView.NO_POSITION){

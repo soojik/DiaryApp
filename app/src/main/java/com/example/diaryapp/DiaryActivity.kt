@@ -82,7 +82,7 @@ class DiaryActivity : AppCompatActivity() {
         }
     }
 
-    //이것도 네비게이터에 필요한거
+    //이것도 네비게이터와 관련된 코드
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

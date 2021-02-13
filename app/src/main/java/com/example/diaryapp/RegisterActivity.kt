@@ -48,6 +48,7 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        //정보 작성 칸에 올바른 정보가 입력되었는지 확인하는 validForm() 메소드를 거쳐 실제 회원가입 진행하는 createUser() 메소드 실행
         btn_register.setOnClickListener {
             if(validForm())
                 createUser(email, password)
@@ -63,10 +64,11 @@ class RegisterActivity : AppCompatActivity() {
         name = register_name.text.toString()
         num = register_num.text.toString()
 
+        //제공되는 메소드 이용해 (이메일+비밀번호) 형식으로 회원가입 진행
+        //이메일, 이름, 전화번호 정보를 이메일을 문서 이름으로 지정해 Firebase DB에 저장
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) { //회원가입 잘 됐을 때
-                        // Sign in success, update UI with the signed-in user's information
+                    if (task.isSuccessful) {
                         Log.d(TAG, "createUserWithEmail:success")
                         //db에 등록
                         var result = HashMap<String, String>()
@@ -76,13 +78,13 @@ class RegisterActivity : AppCompatActivity() {
                         db.collection("users").document(email)
                             .set(result)
                             .addOnSuccessListener {
-                                //db 등록 성공
+                                //DB 등록 성공
                                 Log.d(TAG, "DocumentSnapshot added")
                                 Toast.makeText(this, "회원가입 완료", Toast.LENGTH_LONG).show()
                                 finish()
                             }
                     } else {
-                        // If sign in fails, display a message to the user.
+                        //회원가입 실패 시 Toast로 회원가입 양식 알림
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, "회원가입 오류\n>올바른 이메일 형식\n>비밀번호는 영문+숫자 6자리 이상(공백 허용않음)\n>이메일 중복 허용않음", Toast.LENGTH_SHORT).show()
                     }

@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
                             if (task.isSuccessful) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success")
-                                Toast.makeText(baseContext, "로그인 완료", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, DiaryActivity::class.java)
                                 startActivity(intent)
                             } else {
