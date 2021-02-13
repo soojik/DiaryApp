@@ -75,6 +75,10 @@ class DiaryActivity : AppCompatActivity() {
                         }
                     }
                 }
+            //구글 로그인했을 때 파이어베이스에서 제공하는 메소드로 불러오기
+            for (profile in it.providerData) {
+                headerView.findViewById<TextView>(R.id.userName).text = profile.displayName
+            }
         }
     }
 

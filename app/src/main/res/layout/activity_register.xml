@@ -24,6 +24,7 @@
         android:layout_marginTop="40dp"
         android:hint="아이디(이메일)"
         android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textRegister" />
@@ -36,6 +37,7 @@
         android:layout_marginTop="15dp"
         android:hint="비밀번호"
         android:inputType="textPassword"
+        android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="@id/registerEmail"
         app:layout_constraintStart_toStartOf="@id/registerEmail"
         app:layout_constraintTop_toBottomOf="@id/registerEmail" />
@@ -47,6 +49,7 @@
         android:layout_marginTop="15dp"
         android:hint="비밀번호 확인"
         android:inputType="textPassword"
+        android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="@id/registerPassword"
         app:layout_constraintStart_toStartOf="@id/registerPassword"
         app:layout_constraintTop_toBottomOf="@id/registerPassword" />
@@ -58,6 +61,7 @@
         android:layout_marginTop="15dp"
         android:hint="이름"
         android:inputType="text"
+        android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="@id/registerPasswordChk"
         app:layout_constraintStart_toStartOf="@id/registerPasswordChk"
         app:layout_constraintTop_toBottomOf="@id/registerPasswordChk" />
@@ -69,6 +73,7 @@
         android:layout_marginTop="15dp"
         android:hint="전화번호"
         android:inputType="phone"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="@id/registerName"
         app:layout_constraintStart_toStartOf="@id/registerName"
         app:layout_constraintTop_toBottomOf="@id/registerName" />
