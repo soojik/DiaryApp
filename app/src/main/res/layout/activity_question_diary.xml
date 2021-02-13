@@ -125,7 +125,7 @@
                     android:text="카메라"
                     android:visibility="gone"
                     android:textColor="#7E7B7B"
-                    app:backgroundTint="#FF9800" />
+                    app:backgroundTint="#DBE2EF" />
 
                 <Button
                     android:id="@+id/galleryBtn"
@@ -135,7 +135,7 @@
                     android:text="갤러리"
                     android:visibility="gone"
                     android:textColor="#7E7B7B"
-                    app:backgroundTint="#FF9800" />
+                    app:backgroundTint="#DBE2EF" />
 
             </LinearLayout>
 
