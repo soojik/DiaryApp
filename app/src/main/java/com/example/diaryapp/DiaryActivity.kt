@@ -88,6 +88,7 @@ class DiaryActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    //뒤로가기 두번 누르면 앱 종료
     override fun onBackPressed() {
         //super.onBackPressed()
         if(System.currentTimeMillis() - mBackWait > 2000){

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
@@ -27,6 +28,7 @@ class DiaryFragment : Fragment() {
     lateinit var calendarView: CalendarView
     lateinit var navController : NavController
     lateinit var db : FirebaseFirestore
+
     /*
     생명주기가 이 셋으로 따지자면 onCreate -> onCreateView -> onViewCreated 순인데 view 불러오고, onViewCreated에서는 만들어진 view에서
     레이아웃 요소 바인딩 해주는거. navController는 mobile_navigation에서 프레그먼트가 diary -> questiondiary로 넘어가는 행동을
@@ -74,8 +76,8 @@ class DiaryFragment : Fragment() {
                             if(documents != null){
                                 for(document in documents){
                                     var get_user = document.data
-                                    val name = get_user["name"].toString()
-                                    intent.putExtra("userName", name)
+                                    val email = get_user["email"].toString()
+                                    intent.putExtra("userEmail", email)
                                     startActivity(intent)
                                 }
                             }

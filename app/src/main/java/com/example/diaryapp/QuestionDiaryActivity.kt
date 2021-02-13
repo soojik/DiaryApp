@@ -35,10 +35,6 @@ import java.util.concurrent.TimeUnit
 
 class QuestionDiaryActivity : AppCompatActivity() {
 
-    //var fName : String = "" //삭제
-
-    var userName : String = "kimswunie" //나중에 db에서 이름 정보 가져와서 바꿀 부분 //삭제
-
     lateinit var monthTextView:TextView
     lateinit var dayTextView:TextView
     lateinit var yearTextView:TextView
@@ -120,7 +116,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         var year = intent.getStringExtra("year").toString()
         var month = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
-        var userName = intent.getStringExtra("userName").toString()
+        var userEmail = intent.getStringExtra("userEmail").toString()
 
 
         //선택한 날짜 설정
@@ -134,12 +130,13 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
         //해당 날짜에 저장된 일기 불러오기
         readDiary(year,month,day)
-        saveDiary( year + month + day + "_" + userName + "_" + "Diary" + ".txt",diaryEditView)
+        saveDiary( year + month + day + "_" + userEmail + "_" + "Diary" + ".txt",diaryEditView)
 
         //답변 버튼 누르면 답변 저장하기
         answerBtn.setOnClickListener {
-            var fName = "" + year + month + day + "_" + userName + "_" + "Answer" + ".txt"
+            var fName = "" + year + month + day + "_" + userEmail + "_" + "Answer" + ".txt"
             saveFileEditText(fName, answerEditText)
+            Toast.makeText(this, "답변 저장됨", Toast.LENGTH_SHORT).show()
         }
 
         //해당 날짜에 저장된 날씨와 감정 불러오기
@@ -205,19 +202,19 @@ class QuestionDiaryActivity : AppCompatActivity() {
         var year = intent.getStringExtra("year").toString()
         var month = intent.getStringExtra("month").toString()
         var day = intent.getStringExtra("day").toString()
-        var userName = intent.getStringExtra("userName").toString()
+        var userEmail = intent.getStringExtra("userEmail").toString()
 
         when (requestCode) {
             1 -> {
                 val feeling = data!!.getStringExtra("feeling").toString()
-                var fName = "" + year + month + day + "_" + userName + "_" + "feeling" + ".txt" //기분 파일
+                var fName = "" + year + month + day + "_" + userEmail + "_" + "feeling" + ".txt" //기분 파일
                 if (resultCode == Activity.RESULT_OK) {
                     saveFeelingOrWeather(fName, feeling, "feeling")
                 }
             }
             2 -> {
                 val weather = data?.getStringExtra("weather").toString()
-                var fName = "" + year + month + day + "_" + userName + "_" + "weather" + ".txt" //날씨 파일
+                var fName = "" + year + month + day + "_" + userEmail + "_" + "weather" + ".txt" //날씨 파일
                 if (resultCode == Activity.RESULT_OK) {
                     saveFeelingOrWeather(fName, weather, "weather")
                 }
@@ -264,13 +261,13 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
     //기분, 날씨 화면에 설정
     fun setFeelingOrWeather(Year : String, Month : String, Day : String, ForW : String) {
-        var userName = intent.getStringExtra("userName").toString()
+        var userEmail = intent.getStringExtra("userEmail").toString()
 
         var fName : String
         if (ForW == "feeling") {
-            fName = "" + Year + Month + Day + "_" + userName + "_" + "feeling" + ".txt"
+            fName = "" + Year + Month + Day + "_" + userEmail + "_" + "feeling" + ".txt"
         } else {
-            fName = "" + Year + Month + Day + "_" + userName + "_" + "weather" + ".txt"
+            fName = "" + Year + Month + Day + "_" + userEmail + "_" + "weather" + ".txt"
         }
 
         var whatForW = readFile(fName) //저장된 이미지 파일명 텍스트 불러오기
@@ -293,66 +290,30 @@ class QuestionDiaryActivity : AppCompatActivity() {
     }
 
     fun checkedDayQuestion(cYear : String, cMonth : String, cDay : String){ //질문 설정
-        var userName = intent.getStringExtra("userName").toString() //삭제
-        var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Question" + ".txt" //삭제
-
-
-
         db = FirebaseFirestore.getInstance()
 
         val docRef = db.collection("question").document(cMonth)
         docRef.get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
-
                         var get_user = document.data
                         var qstr = get_user?.get("$cDay").toString()
                         questionTextView.setText(qstr)
-
-
                     }
                 }
                 .addOnFailureListener { exception ->
-
                 }
-//삭제
-//        val randomNum = Random()
-//        val num = randomNum.nextInt(30)
-//        val qarray : Array<String> = resources.getStringArray(R.array.question)
-//        var qstr = qarray[num] //랜덤으로 질문 저장
-//
-//        var str = readFile(fName)
-//
-//        if(str==""){ //질문이 안만들어졌으면 새로 질문을 만들고 질문 파일 생성
-//            questionTextView.text = qstr
-//            saveFileTextView(fName, questionTextView)
-//        } else{ //질문 만들어져있으면 불러오기
-//            questionTextView.text = str
-//        }
     }
 
     fun checkedDayAnswer(cYear : String, cMonth : String, cDay : String){ //답변 설정
-        var userName = intent.getStringExtra("userName").toString()
-        var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Answer" + ".txt" //답변 파일 이름
+        var userEmail = intent.getStringExtra("userEmail").toString()
+        var fName = "" + cYear + cMonth + cDay + "_" + userEmail + "_" + "Answer" + ".txt" //답변 파일 이름
 
         var str = readFile(fName)
 
         if(str!=""){
             answerEditText.setText(str)
         }
-/*
-        if(str==""){ //답변 없으면 answerEditText에 쓰여진 내용 파일로 저장
-            answerBtn.setOnClickListener {
-                saveFileEditText(fName, answerEditText)
-                Toast.makeText(this, fName + " 데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show()
-            }
-        } else{ //답변이 이미 존재하면 불러오기
-            answerEditText.setText(str)
-            answerBtn.setOnClickListener{
-                saveFileEditText(fName, answerEditText)
-            }
-        }
-        */
     }
 
     fun readFile(fName : String) : String{ //파일 읽는 함수
@@ -370,19 +331,6 @@ class QuestionDiaryActivity : AppCompatActivity() {
             str = ""
         }
         return str
-    }
-
-    //삭제
-    fun saveFileTextView(fName : String, widget : TextView){ //TextView인 질문 저장하는 함수
-        try{
-            var fos : FileOutputStream? = null
-            fos = openFileOutput(fName, Context.MODE_PRIVATE)
-            var content : String = widget.text.toString()
-            fos.write(content.toByteArray())
-            fos.close()
-        } catch(e : Exception){
-            e.printStackTrace()
-        }
     }
 
     fun saveFileEditText(fName : String, widget : EditText){ //EditText인 답변 저장하는 함수
@@ -502,8 +450,8 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
     // 일기
     fun readDiary(cYear : String, cMonth : String, cDay : String){ //일기
-        var userName = intent.getStringExtra("userName").toString()
-        var fName = "" + cYear + cMonth + cDay + "_" + userName + "_" + "Diary" + ".txt" //일기 파일 이름
+        var userEmail = intent.getStringExtra("userEmail").toString()
+        var fName = "" + cYear + cMonth + cDay + "_" + userEmail + "_" + "Diary" + ".txt" //일기 파일 이름
 
         var str = readFile(fName)
         diaryEditView.setText(str)
@@ -519,11 +467,11 @@ class QuestionDiaryActivity : AppCompatActivity() {
                 var content : String = widget.getText().toString()
                 fos.write(content.toByteArray())
                 fos.close()
+                Toast.makeText(this, "일기 저장됨", Toast.LENGTH_SHORT).show()
             } catch(e : Exception){
                 e.printStackTrace()
             }
         }
-
     }
 
 
