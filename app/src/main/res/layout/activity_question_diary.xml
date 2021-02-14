@@ -148,6 +148,16 @@
                 android:visibility="gone"
                 tools:srcCompat="@tools:sample/avatars" />
 
+            <Button
+                android:id="@+id/imageSaveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="이미지 저장"
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF"
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/diaryEditView"
                 android:layout_width="match_parent"
@@ -249,6 +259,16 @@
                     android:visibility="gone" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/RecordSaveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="녹음 저장"
+                android:textColor="#7E7B7B"
+                app:backgroundTint="#DBE2EF"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

@@ -49,6 +49,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     lateinit var cameraBtn : Button
     lateinit var galleryBtn : Button
     lateinit var imageImgView : ImageView
+    lateinit var imageSaveBtn : Button
     lateinit var recordBtn : Button
     lateinit var recStartBtn : Button
     lateinit var recStopBtn : Button
@@ -59,6 +60,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
     lateinit var mr : MediaRecorder
     lateinit var mp : MediaPlayer
     lateinit var handler: Handler
+    lateinit var recordSaveBtn : Button
 
     // 카메라, 저장소 권한, 플래그값 정의
     val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
@@ -98,6 +100,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         cameraBtn = findViewById(R.id.cameraBtn)
         galleryBtn = findViewById(R.id.galleryBtn)
         imageImgView = findViewById(R.id.imageImgView)
+        imageSaveBtn = findViewById(R.id.imageSaveBtn)
         recordBtn = findViewById(R.id.recordBtn)
         recStartBtn = findViewById(R.id.recStartBtn)
         recStopBtn = findViewById(R.id.recStopBtn)
@@ -105,6 +108,7 @@ class QuestionDiaryActivity : AppCompatActivity() {
         recHearStopBtn = findViewById(R.id.recHearStopBtn)
         seekbar = findViewById(R.id.seekBar)
         recHearSoundBtn = findViewById(R.id.recHearSoundBtn)
+        recordSaveBtn = findViewById(R.id.RecordSaveBtn)
         mr = MediaRecorder()
         mp = MediaPlayer()
         seekbar.isClickable = false
@@ -160,18 +164,30 @@ class QuestionDiaryActivity : AppCompatActivity() {
             setViews()
         }
 
+        // 해당 날짜에 저장된 이미지 불러오기
+        imageSaveBtn.setOnClickListener {
+            Toast.makeText(this, "이미지 저장됨", Toast.LENGTH_SHORT).show()
+        }
+
+        // 해당 날짜에 저장된 녹음 불러오기
+        recordSaveBtn.setOnClickListener {
+            Toast.makeText(this, "녹음 저장됨", Toast.LENGTH_SHORT).show()
+        }
+
         // 이미지 업로드 버튼
         imgUploadBtn.setOnClickListener {
             imgUploadBtn.visibility = View.GONE
             cameraBtn.visibility = View.VISIBLE
             galleryBtn.visibility = View.VISIBLE
             imageImgView.visibility = View.VISIBLE
+            imageSaveBtn.visibility = View.VISIBLE
         }
 
         // 음성 녹음 버튼
         recordBtn.setOnClickListener {
             recordBtn.visibility = View.GONE
             recStartBtn.visibility = View.VISIBLE
+            recordSaveBtn.visibility = View.VISIBLE
         }
 
         recStartBtn.isEnabled = false
