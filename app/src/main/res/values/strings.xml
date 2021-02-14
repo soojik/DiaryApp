@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DiaryApp</string>
+    <string name="app_name">QDIARY</string>
     <string name="firebase_web_client_id">942363552814-6601qs9oc7nin6l4gb2q1o73n9aearfq.apps.googleusercontent.com</string>
     <string name="title_activity_diary">DiaryActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
