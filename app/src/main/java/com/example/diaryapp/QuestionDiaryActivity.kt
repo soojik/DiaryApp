@@ -166,11 +166,13 @@ class QuestionDiaryActivity : AppCompatActivity() {
 
         // 해당 날짜에 저장된 이미지 불러오기
         imageSaveBtn.setOnClickListener {
+            saveImage(year, month, day, " ", " ", "image")
             Toast.makeText(this, "이미지 저장됨", Toast.LENGTH_SHORT).show()
         }
 
         // 해당 날짜에 저장된 녹음 불러오기
         recordSaveBtn.setOnClickListener {
+            saveRecord(year, month, day, " ", " ", "image")
             Toast.makeText(this, "녹음 저장됨", Toast.LENGTH_SHORT).show()
         }
 
@@ -466,6 +468,21 @@ class QuestionDiaryActivity : AppCompatActivity() {
             recStartBtn.isEnabled = true
     }
 
+
+    // 이미지 저장 함수
+    fun saveImage(Year: String, Month: String, Day: String, fName: String, whatForW: String, ForW: String){
+        try{
+            var fos : FileOutputStream? = null
+            fos = openFileOutput(fName, Context.MODE_PRIVATE)
+            var content : String = whatForW
+            fos.write(content.toByteArray())
+            fos.close()
+        } catch(e : Exception){
+            e.printStackTrace()
+        }
+    }
+
+
     // 일기
     fun readDiary(cYear : String, cMonth : String, cDay : String){ //일기
         var userEmail = intent.getStringExtra("userEmail").toString()
@@ -539,6 +556,18 @@ class QuestionDiaryActivity : AppCompatActivity() {
         recHearStopBtn.isEnabled = false
         recHearStartBtn.isEnabled = true
         Toast.makeText(applicationContext, "음성 멈춤", Toast.LENGTH_SHORT).show()
+    }
+
+    fun saveRecord(Year: String, Month: String, Day: String, fName: String, whatForW: String, ForW: String){
+        try{
+            var fos : FileOutputStream? = null
+            fos = openFileOutput(fName, Context.MODE_PRIVATE)
+            var content : String = whatForW
+            fos.write(content.toByteArray())
+            fos.close()
+        } catch(e : Exception){
+            e.printStackTrace()
+        }
     }
 
     private val updateSongTime = object : Runnable {
